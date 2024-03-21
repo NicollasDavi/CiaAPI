@@ -15,12 +15,14 @@ app.register(fastifyCors, {
 // Registre o plugin fastify-reply-from
 app.register(fastifyReplyFrom);
 
+// Registre o plugin fastify-oas
+
 // Registre suas rotas
 app.register(routes);
 
 const port = process.env.PORT ? Number(process.env.PORT) : 3000;
 
-app.listen(port, "0.0.0.0", (err, address) => {
+app.listen(port, '0.0.0.0', (err, address) => {
   if (err) {
     console.error(err);
     process.exit(1);
