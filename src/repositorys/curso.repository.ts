@@ -37,6 +37,15 @@ class CursoRepository{
         return null;
     }
 }
+
+    async getAll(){
+        try {
+            const allCursos = await prisma.curso.findMany();
+            return allCursos
+        } catch (error: any) {
+            throw new Error("Erro na consulta")
+        }
+    }
     
     async deleteOne(id: string){
         try {

@@ -10,7 +10,11 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
     fastify.get("/curso/:id", cursoController.handleGetOne);
 
+    fastify.get("/cursos", cursoController.handleGetAll);
+
     fastify.delete("/curso/:id", cursoController.handleDeleteOne);
 
     fastify.put("/curso/:id", cursoController.handleUpdate);
+
+    //#####################################################################//
 }
