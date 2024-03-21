@@ -1,4 +1,3 @@
-import { FastifyRequest } from "fastify";
 import { CreateCursoService } from "../services/create.curso.service";
 
 class CursoController {
@@ -13,7 +12,7 @@ class CursoController {
         }
     }
 
-    async handleGetOne(request: FastifyRequest<{ Params: { id: string } }>, reply: any){
+    async handleGetOne(request: any, reply: any){
         const id = request.params.id;
         try{
             const createCursoService = new CreateCursoService();
@@ -24,7 +23,28 @@ class CursoController {
         }
     }
 
+    async handleDeleteOne(request: any, reply: any){
+        const id = request.params.id;
+        try{
+            const createCursoService = new CreateCursoService();
+            const result = await createCursoService.executeDeleteOne(id);
+            return reply.send(result);
+        } catch (error: any) {
+            return reply.status(400).send({ error: error.message });
+        }
+    }
 
+    async handleUpdate(request: any, reply: any){
+        const id = request.params.id;
+        const { body } = request;
+        try {
+            const createCursoService = new CreateCursoService();
+            const result = await createCursoService.executeUpdate(id, body);
+            return reply.send(result);
+        } catch (error: any) {
+            return reply.status(400).send({error: error.message})
+        }
+    }
 }
 
 export { CursoController };

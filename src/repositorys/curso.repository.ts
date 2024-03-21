@@ -38,7 +38,43 @@ class CursoRepository{
     }
 }
     
+    async deleteOne(id: string){
+        try {
+            const findedCurso = await prisma.curso.delete({
+                where: {
+                    codigo: id
+                }
+            });
+            return {findedCurso};
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
+    }
     
+    async update(id: string, data: any) {
+        try {
+            const { codigo, nome, informacao, valor_E, valor_M, contra_T, integral } = data;
+            const updatedCurso = await prisma.curso.update({
+                where: {
+                    codigo: id
+                },
+                data: {
+                    codigo,
+                    nome,
+                    informacao,
+                    valor_E,
+                    valor_M,
+                    contra_T,
+                    integral,
+                },
+            });
+            return updatedCurso;
+        } catch (error: any) {
+            console.error("Erro ao atualizar curso:", error);
+            throw new Error("Erro ao atualizar curso: " + error.message); 
+        }
+    }
     
 }
 

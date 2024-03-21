@@ -4,7 +4,7 @@ import cursoRepository from "../repositorys/curso.repository";
 class CreateCursoService {
     async executeCreate(data: any) {
         const createCursoSchema = z.object({
-            codigo: z.number(),
+            codigo: z.string(),
             nome: z.string(),
             informacao: z.string(),
             valor_E: z.number(),
@@ -22,10 +22,30 @@ class CreateCursoService {
     }
 
     async executeGetOne(id : string){
+        const CursoSchema = z.object({
+            id: z.string(),
+        });
         try {
+            const validatedData = CursoSchema.parse(id);
             return cursoRepository.getOne(id);
         } catch (error: any) {
             throw new Error("Erro de validação: " + error.errors);
+        }
+    }
+
+    async executeDeleteOne(id : string){
+        try {
+            return cursoRepository.deleteOne(id);
+        } catch (error: any) {
+            throw new Error("Erro de validação: " + error.errors);
+        }
+    }
+
+    async executeUpdate(id: string, data: any){
+        try {
+            return cursoRepository.update(id, data)
+        } catch (error: any) {
+            throw new Error("Erro de validação: " + error.errors)
         }
     }
 }
