@@ -32,7 +32,7 @@ model Setores{
 }
 
 model Curso{
-  codigo Int @id
+  codigo String @id
   nome String
   informacao String
   valor_E Float

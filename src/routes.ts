@@ -6,5 +6,7 @@ const cursoController = new CursoController();
 
 export async function routes(fastify: FastifyInstance, options: FastifyPluginOptions) {
 
-    fastify.post("/cursos", cursoController.handleCreate);
+    fastify.post("/curso", cursoController.handleCreate);
+
+    fastify.get("/curso/:id", cursoController.handleGetOne);
 }
