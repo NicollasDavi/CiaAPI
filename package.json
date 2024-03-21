@@ -1,0 +1,21 @@
+{
+  "name": "ciaapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx src/server.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fastify/cors": "^9.0.1",
+    "@fastify/reply-from": "^9.7.0",
+    "@prisma/client": "^5.11.0",
+    "fastify": "^4.26.2",
+    "prisma": "^5.11.0",
+    "studio": "^0.13.5",
+    "tsx": "^4.7.1",
+    "typescript": "^5.4.3"
+  }
+}
