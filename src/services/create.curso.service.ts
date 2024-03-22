@@ -15,18 +15,14 @@ class CreateCursoService {
 
         try {
             const validatedData = createCursoSchema.parse(data);
-            return cursoRepository.save(data);
+            return cursoRepository.save(validatedData);
         } catch (error: any) {
             throw new Error("Erro de validação: " + error.errors);
         }
     }
 
     async executeGetOne(id : string){
-        const CursoSchema = z.object({
-            id: z.string(),
-        });
         try {
-            const validatedData = CursoSchema.parse(id);
             return cursoRepository.getOne(id);
         } catch (error: any) {
             throw new Error("Erro de validação: " + error.errors);
