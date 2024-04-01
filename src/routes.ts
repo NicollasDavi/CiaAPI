@@ -21,6 +21,8 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
     fastify.post("/user", userController.handleCreate);
 
+    fastify.post("/login", userController.handleLogin);
+
     fastify.get("/user/:id", userController.handleGetOne);
 
     fastify.get("/users", userController.handleGetAll);

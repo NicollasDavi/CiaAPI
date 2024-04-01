@@ -43,6 +43,17 @@ class UserController{
             return reply.status(400).send({ error: error.message });
         }
     }
+
+    async handleLogin(request: any, reply: any){
+        const { body } = request;
+        try{
+            const createUserService = new CreateUserService();
+            const result = await createUserService.executeLogin(body);
+            return reply.send(result)
+        } catch (error: any){
+            return reply.status(400).send({ error: error.message });
+        }
+    }
 }
 
 export { UserController }

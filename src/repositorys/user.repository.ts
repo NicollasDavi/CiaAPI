@@ -56,6 +56,22 @@ class UserRepository{
             throw new Error(error.message)
         }
     }
+
+    async login(data: any,){  
+        const {matricula, password} = data  
+        const matriculaInt = parseInt(matricula)
+        try {
+            const login = await prisma.usuario.findUnique({
+                where: {
+                    matricula : matriculaInt,
+                    senha : password
+                }
+            })
+            return {["result"][login.matricula]}
+        } catch (error: any) {
+            throw new Error(error.message)
+        }
+    }
 }
 
 export default new UserRepository();

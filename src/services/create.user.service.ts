@@ -3,6 +3,15 @@ import userRepository from "../repositorys/user.repository";
 import { Usuario } from "@prisma/client";
 
 class CreateUserService{
+
+    async executeLogin(data : any){
+        try{
+            return userRepository.login(data);
+        } catch (error) {
+
+        }
+    };
+
     async executeCreate(data : Usuario){
         const createUserSchema = z.object({
             matricula: z.number(),
