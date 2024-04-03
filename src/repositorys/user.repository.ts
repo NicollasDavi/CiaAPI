@@ -67,7 +67,13 @@ class UserRepository{
                     senha : password
                 }
             })
-            return {["result"][login.matricula]}
+            const result = login?.isN
+
+            if(result == null){
+                throw new Error("Credenciais invalidas")
+            }else{
+                return {result}
+            }
         } catch (error: any) {
             throw new Error(error.message)
         }
