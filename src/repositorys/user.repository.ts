@@ -57,26 +57,39 @@ class UserRepository{
         }
     }
 
-    async login(data: any,){  
-        const {matricula, password} = data  
-        const matriculaInt = parseInt(matricula)
+    async login(data: any) {  
+        const { matricula, password } = data;
+        const matriculaInt = parseInt(matricula);
+    
         try {
             const login = await prisma.usuario.findUnique({
                 where: {
-                    matricula : matriculaInt,
-                    senha : password
+                    matricula: matriculaInt,
+                    senha: password
                 }
-            })
-            const result = login?.isN
+            });
 
-            if(result == null){
-                throw new Error("Credenciais invalidas")
-            }else{
-                return {result}
+            const isAdm = login?.admin
+            console.log(login?.admin)
+            if (login) {
+                if (isAdm){
+                    console.log("é true")
+                    return { URL: "http://localhost:3000/pages/homeadm" };
+
+                }else{
+                    console.log("é false")
+
+                    return { URL: "http://localhost:3000/pages/home "};
+
+                }
+
+            } else {
+                throw new Error("Credenciais inválidas");
             }
         } catch (error: any) {
-            throw new Error(error.message)
+            throw new Error(error.message);
         }
     }
+    
 }
 export default new UserRepository();

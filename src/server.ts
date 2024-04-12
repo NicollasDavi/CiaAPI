@@ -20,12 +20,13 @@ app.register(fastifyReplyFrom);
 // Registre suas rotas
 app.register(routes);
 
-const port = process.env.PORT ? Number(process.env.PORT) : 3000;
+const port = process.env.PORT ? Number(process.env.PORT) : 4000;
 
-app.listen(port, '0.0.0.0', (err, address) => {
+app.listen({ port: port, host: '0.0.0.0' }, (err, address) => {
   if (err) {
     console.error(err);
     process.exit(1);
   }
   console.log(`Server listening on ${address}`);
 });
+

@@ -11,6 +11,8 @@ class CreateCursoService {
             valor_M: z.number(),
             contra_T: z.string(),
             integral: z.string(),
+            turno: z.string(),
+            unidade: z.string()
         });
 
         try {
@@ -21,9 +23,9 @@ class CreateCursoService {
         }
     }
 
-    async executeGetOne(id : string){
+    async executeGetOne(nome : string){
         try {
-            return cursoRepository.getOne(id);
+            return cursoRepository.getOne(nome);
         } catch (error: any) {
             throw new Error("Erro de validação: " + error.errors);
         }
@@ -37,9 +39,9 @@ class CreateCursoService {
         }
     }
 
-    async executeDeleteOne(id : string){
+    async executeDeleteOne(nome : string){
         try {
-            return cursoRepository.deleteOne(id);
+            return cursoRepository.deleteOne(nome);
         } catch (error: any) {
             throw new Error("Erro de validação: " + error.errors);
         }

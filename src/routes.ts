@@ -1,23 +1,28 @@
 import { FastifyInstance, FastifyPluginOptions} from "fastify";
 import { CursoController } from "./controllers/curso.controller";
 import { UserController } from "./controllers/user.controller";
+import { CalcController } from "./controllers/calc.controller";
 
 const cursoController = new CursoController();
 const userController = new UserController();
+const calcController = new CalcController();
 
 
 export async function routes(fastify: FastifyInstance, options: FastifyPluginOptions) {
+
+    //############################### User ######################################//
+
     fastify.post("/curso", cursoController.handleCreate);
 
-    fastify.get("/curso/:id", cursoController.handleGetOne);
+    fastify.get("/curso/:nome", cursoController.handleGetOne);
 
     fastify.get("/cursos", cursoController.handleGetAll);
 
-    fastify.delete("/curso/:id", cursoController.handleDeleteOne);
+    fastify.delete("/curso/:nome", cursoController.handleDeleteOne);
 
-    fastify.put("/curso/:id", cursoController.handleUpdate);
+    fastify.put("/curso/:nome", cursoController.handleUpdate);
 
-    //#####################################################################//
+    //############################### User ######################################//
 
     fastify.post("/user", userController.handleCreate);
 
@@ -28,4 +33,9 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
     fastify.get("/users", userController.handleGetAll);
 
     fastify.delete("/user/:id", userController.handleDeleteOne);
+
+    //############################### calc ######################################//
+
+    fastify.post("/calc", calcController.handleCalc);
+    
 }

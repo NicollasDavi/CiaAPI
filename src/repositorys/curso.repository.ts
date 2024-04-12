@@ -5,11 +5,13 @@ const prisma = new PrismaClient();
 class CursoRepository{
     async save(curso: Curso){
         try {
-            const {codigo, nome, informacao, valor_E, valor_M, contra_T, integral} = curso;
+            const {codigo, nome, informacao, valor_E, valor_M, contra_T, integral, unidade, turno} = curso;
             const newCurso = await prisma.curso.create({
                 data: {
                     codigo,
                     nome,
+                    unidade,
+                    turno,
                     informacao,
                     valor_E,
                     valor_M,
@@ -24,11 +26,11 @@ class CursoRepository{
         }
     }
 
-    async getOne(id: string) {
+    async getOne(nome: string) {
     try {
         const findedCurso = await prisma.curso.findUnique({
             where: {
-                codigo: id
+                nome: nome
             }
         });
         return {findedCurso};
@@ -47,11 +49,11 @@ class CursoRepository{
         }
     }
     
-    async deleteOne(id: string){
+    async deleteOne(nome: string){
         try {
             const findedCurso = await prisma.curso.delete({
                 where: {
-                    codigo: id
+                    nome: nome
                 }
             });
             return {findedCurso};
@@ -61,18 +63,20 @@ class CursoRepository{
         }
     }
     
-    async update(id: string, data: any) {
+    async update(nome: string, data: any) {
         try {
-            const { codigo, nome, informacao, valor_E, valor_M, contra_T, integral } = data;
+            const { codigo, nome, informacao, valor_E, valor_M, contra_T, integral, unidade, turno } = data;
             const updatedCurso = await prisma.curso.update({
                 where: {
-                    codigo: id
+                    nome: nome
                 },
                 data: {
                     codigo,
                     nome,
                     informacao,
                     valor_E,
+                    turno,
+                    unidade,
                     valor_M,
                     contra_T,
                     integral,
