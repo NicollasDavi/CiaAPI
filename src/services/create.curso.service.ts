@@ -12,7 +12,8 @@ class CreateCursoService {
             contra_T: z.string(),
             integral: z.string(),
             turno: z.string(),
-            unidade: z.string()
+            unidade: z.string(),
+            imagem: z.number()
         });
 
         try {

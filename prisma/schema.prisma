@@ -41,6 +41,7 @@ model Curso{
   valor_M Float
   contra_T String
   integral String
+  imagem Bytes
 }
 
 model Professores{
