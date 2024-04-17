@@ -32,8 +32,9 @@ model Setores{
 }
 
 model Curso{
-  codigo String 
-  nome String @id
+  id String @id
+  matricula Int
+  nome String
   unidade String
   turno String
   informacao String

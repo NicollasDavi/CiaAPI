@@ -1,14 +1,16 @@
 import { Curso, PrismaClient } from "@prisma/client";
+import { number } from "zod";
 
 const prisma = new PrismaClient();
 
 class CursoRepository{
     async save(curso: Curso){
         try {
-            const {codigo, nome, informacao, valor_E, valor_M, contra_T, integral, unidade, turno} = curso;
+            const {id, nome, informacao, valor_E, valor_M, contra_T, integral, unidade, turno, imagem, matricula} = curso;
             const newCurso = await prisma.curso.create({
                 data: {
-                    codigo,
+                    id,
+                    matricula,
                     nome,
                     unidade,
                     turno,
@@ -17,7 +19,8 @@ class CursoRepository{
                     valor_M,
                     contra_T,
                     integral,
-                }
+                    imagem,
+                  },
             });
 
             return newCurso;
@@ -26,11 +29,12 @@ class CursoRepository{
         }
     }
 
-    async getOne(nome: string) {
+    async getOne(id: string) {
+        console.log(number)
     try {
         const findedCurso = await prisma.curso.findUnique({
             where: {
-                nome: nome
+               id: id
             }
         });
         return {findedCurso};
@@ -49,11 +53,11 @@ class CursoRepository{
         }
     }
     
-    async deleteOne(nome: string){
+    async deleteOne(id: string){
         try {
             const findedCurso = await prisma.curso.delete({
                 where: {
-                    nome: nome
+                    id: id
                 }
             });
             return {findedCurso};
@@ -63,15 +67,15 @@ class CursoRepository{
         }
     }
     
-    async update(nome: string, data: any) {
+    async update(id: string, data: any) {
         try {
-            const { codigo, nome, informacao, valor_E, valor_M, contra_T, integral, unidade, turno } = data;
+            const { matricula, nome, informacao, valor_E, valor_M, contra_T, integral, unidade, turno } = data;
             const updatedCurso = await prisma.curso.update({
                 where: {
-                    nome: nome
+                    id: id
                 },
                 data: {
-                    codigo,
+                    matricula,
                     nome,
                     informacao,
                     valor_E,

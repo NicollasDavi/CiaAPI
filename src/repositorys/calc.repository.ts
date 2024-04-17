@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 class CalcRepositor{
     async calcularMensalidade(data : any){
-        const nome = data.nome
+        const id = data.id
         const unidade = data.unidade
         const turno = data.turno
         const parce = data.parcelamento
@@ -13,14 +13,14 @@ class CalcRepositor{
         try {
             const curso = await prisma.curso.findUnique({
                 where: {
-                    nome: nome,
+                    id: id,
                     unidade : unidade,
                     turno : turno
                 }
             });
 
             if (!curso) {
-                throw new Error(`Curso com o código ${nome} não encontrado.`);
+                throw new Error(`Curso com o código ${id} não encontrado.`);
             }
 
             const Valor_M = curso.valor_M

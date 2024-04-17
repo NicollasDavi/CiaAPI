@@ -24,16 +24,19 @@ CREATE TABLE "Setores" (
 
 -- CreateTable
 CREATE TABLE "Curso" (
-    "codigo" INTEGER NOT NULL,
+    "id" TEXT NOT NULL,
+    "matricula" INTEGER NOT NULL,
     "nome" TEXT NOT NULL,
+    "unidade" TEXT NOT NULL,
+    "turno" TEXT NOT NULL,
     "informacao" TEXT NOT NULL,
     "valor_E" DOUBLE PRECISION NOT NULL,
     "valor_M" DOUBLE PRECISION NOT NULL,
     "contra_T" TEXT NOT NULL,
     "integral" TEXT NOT NULL,
-    "apo_A" INTEGER NOT NULL,
+    "imagem" BYTEA NOT NULL,
 
-    CONSTRAINT "Curso_pkey" PRIMARY KEY ("codigo")
+    CONSTRAINT "Curso_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
