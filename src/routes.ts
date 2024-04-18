@@ -20,7 +20,7 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
     fastify.delete("/curso/:nome", cursoController.handleDeleteOne);
 
-    fastify.put("/curso/:nome", cursoController.handleUpdate);
+    fastify.put("/curso/:id", cursoController.handleUpdate);
 
     //############################### User ######################################//
 

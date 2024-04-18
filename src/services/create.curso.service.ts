@@ -36,6 +36,8 @@ class CreateCursoService {
     }
 
     async executeUpdate(id: string, data: any){
+        console.log(id)
+
         try {
             return cursoRepository.update(id, data)
         } catch (error: any) {

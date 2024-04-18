@@ -5,6 +5,7 @@ const prisma = new PrismaClient();
 
 class CursoRepository{
     async save(curso: Curso){
+        console.log("Extrou")
         try {
             const {id, nome, informacao, valor_E, valor_M, contra_T, integral, unidade, turno, imagem, matricula} = curso;
             const newCurso = await prisma.curso.create({
@@ -30,14 +31,12 @@ class CursoRepository{
     }
 
     async getOne(id: string) {
-        console.log(number)
     try {
-        const findedCurso = await prisma.curso.findUnique({
+        return( await prisma.curso.findUnique({
             where: {
                id: id
             }
-        });
-        return {findedCurso};
+        }))
     } catch (error) {
         console.error(error);
         return null;
@@ -68,6 +67,7 @@ class CursoRepository{
     }
     
     async update(id: string, data: any) {
+        console.log(id)
         try {
             const { matricula, nome, informacao, valor_E, valor_M, contra_T, integral, unidade, turno } = data;
             const updatedCurso = await prisma.curso.update({
@@ -75,7 +75,6 @@ class CursoRepository{
                     id: id
                 },
                 data: {
-                    matricula,
                     nome,
                     informacao,
                     valor_E,
@@ -88,8 +87,8 @@ class CursoRepository{
             });
             return updatedCurso;
         } catch (error: any) {
-            console.error("Erro ao atualizar curso:", error);
-            throw new Error("Erro ao atualizar curso: " + error.message); 
+            // console.error("Erro ao atualizar curso:", error);
+            // throw new Error("Erro ao atualizar curso: " + error.message); 
         }
     }
     
