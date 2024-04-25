@@ -1,2 +1,24 @@
-# Keep environment variables out of version control
+# Arquivos de compilação Python
+*.pyc
+
+# Ambientes virtuais
+venv/
+env/
+.venv/
+
+node_modules/
+# Arquivos de log e cache
+*.log
+__pycache__/
+
+# Arquivos de configuração
+*.cfg
+
+# Arquivos de chave de API ou credenciais sensíveis
 .env
+
+# Arquivos temporários
+*.tmp
+
+# Outros
+.DS_Store
