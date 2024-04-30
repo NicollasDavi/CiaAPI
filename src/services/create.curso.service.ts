@@ -27,9 +27,9 @@ class CreateCursoService {
         }
     }
 
-    async executeDeleteOne(nome : string){
+    async executeDeleteOne(id : string){
         try {
-            return cursoRepository.deleteOne(nome);
+            return cursoRepository.deleteOne(id);
         } catch (error: any) {
             throw new Error("Erro de validação: " + error.errors);
         }
