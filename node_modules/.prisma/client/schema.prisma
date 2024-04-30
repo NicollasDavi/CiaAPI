@@ -32,7 +32,7 @@ model Setores{
 }
 
 model Curso{
-  id String @id
+  id     String @id @default(uuid()) @map(name: "id")
   matricula Int
   nome String
   unidade String

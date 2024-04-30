@@ -21,7 +21,6 @@
     "fastify-reply-from": "^6.7.0",
     "fastify-swagger": "^4.8.1",
     "fastify-swagger-ui": "^1.0.1",
-    "prisma": "^5.11.0",
     "studio": "^0.13.5",
     "swagger-ui-express": "^5.0.0",
     "tsx": "^4.7.1",
@@ -30,6 +29,7 @@
   },
   "devDependencies": {
     "@types/fastify-cors": "^2.1.0",
-    "@types/fastify-multipart": "^0.7.0"
+    "@types/fastify-multipart": "^0.7.0",
+    "prisma": "^5.13.0"
   }
 }

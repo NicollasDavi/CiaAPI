@@ -74,7 +74,7 @@ class UserRepository{
             if (login) {
                 if (isAdm){
                     console.log("é true")
-                    return { URL: "http://localhost:3000/pages/homeadm" };
+                    return { URL: "http://localhost:3000/pages/home" };
 
                 }else{
                     console.log("é false")

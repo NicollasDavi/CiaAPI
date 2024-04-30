@@ -5,12 +5,11 @@ const prisma = new PrismaClient();
 
 class CursoRepository{
     async save(curso: Curso){
-        console.log("Extrou")
+        console.log("Entrou")
         try {
-            const {id, nome, informacao, valor_E, valor_M, contra_T, integral, unidade, turno, imagem, matricula} = curso;
+            const { nome, informacao, valor_E, valor_M, contra_T, integral, unidade, turno, imagem, matricula } = curso;
             const newCurso = await prisma.curso.create({
                 data: {
-                    id,
                     matricula,
                     nome,
                     unidade,
@@ -21,12 +20,13 @@ class CursoRepository{
                     contra_T,
                     integral,
                     imagem,
-                  },
+                },
             });
-
+    
             return newCurso;
-        } catch (error : any) {
-            throw new Error(error.message);
+        } catch (error) {
+            console.error("Erro ao salvar o curso:", error);
+            throw error;
         }
     }
 
