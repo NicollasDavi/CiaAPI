@@ -21,6 +21,8 @@
     "fastify-reply-from": "^6.7.0",
     "fastify-swagger": "^4.8.1",
     "fastify-swagger-ui": "^1.0.1",
+    "http-status": "^1.7.4",
+    "jsonwebtoken": "^9.0.2",
     "studio": "^0.13.5",
     "swagger-ui-express": "^5.0.0",
     "tsx": "^4.7.1",

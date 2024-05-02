@@ -5,19 +5,15 @@ import { routes } from './routes';
 
 const app = fastify();
 
-// Registro de plugins
 app.register(fastifyCors, {
   origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 });
 
-// Registre o plugin fastify-reply-from
 app.register(fastifyReplyFrom);
 
-// Registre o plugin fastify-oas
 
-// Registre suas rotas
 app.register(routes);
 
 const port = process.env.PORT ? Number(process.env.PORT) : 4000;

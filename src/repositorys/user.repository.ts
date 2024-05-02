@@ -68,10 +68,13 @@ class UserRepository{
                     senha: password
                 }
             });
+
+
     
             if (login) {
                 const isAdm = login.admin;
-    
+                
+
                 await prisma.usuario.update({
                     where: {
                         matricula: matriculaInt
