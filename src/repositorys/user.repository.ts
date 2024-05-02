@@ -93,4 +93,5 @@ class UserRepository{
             throw new Error(error.message);
         }
     }
+}
 export default new UserRepository();

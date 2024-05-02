@@ -13,8 +13,8 @@ model Usuario{
   senha String
   admin Boolean @default(false)
   isN Boolean @default(false)
-  token String
-  isAuth Boolean
+  token String @default(" ")
+  isAuth Boolean @default(false)
 }
 
 model Setores{
