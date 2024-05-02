@@ -19,6 +19,8 @@ class CreateUserService{
             senha: z.string(),
             admin: z.boolean(),
             isN: z.boolean(),
+            token: z.string(),
+            isAuth: z.boolean()
         });
 
         try {
@@ -48,6 +50,14 @@ class CreateUserService{
     async executeDeleteOne(id: number){
         try {
             return await userRepository.deleteOne(id);
+        } catch (error: any) {
+            throw new Error("Erro de validação: " + error.errors);
+        }
+    }
+
+    async executeVerifyLogged(token: string){
+        try {
+            return await userRepository.verifyLogged(token);
         } catch (error: any) {
             throw new Error("Erro de validação: " + error.errors);
         }

@@ -32,6 +32,7 @@
   "devDependencies": {
     "@types/fastify-cors": "^2.1.0",
     "@types/fastify-multipart": "^0.7.0",
+    "@types/jsonwebtoken": "^9.0.6",
     "prisma": "^5.13.0"
   }
 }

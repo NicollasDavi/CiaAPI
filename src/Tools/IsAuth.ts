@@ -1,5 +1,4 @@
-import { PrismaClient, Usuario } from "@prisma/client";
-import { status } from 'http-status';
+import { PrismaClient} from "@prisma/client";
 import jwt from 'jsonwebtoken';
 
 
@@ -7,29 +6,29 @@ const prisma = new PrismaClient();
 
 
 class isAuth{
-    async verify(matricula: number, token: string){
-        try{
+    async verify(matricula: number, token: string) {
+        console.log(token)
+        try {
             const user = await prisma.usuario.findUnique({
-                        where:{
-                            matricula : matricula,
-                            token: token,
-                        }
-                    })
-            if (user == null){
-                return { status: status.NOT_FOUND, message: 'Token invalido' };
+                where: {
+                    matricula: matricula,
+                    token: token,
+                }
+            });
+            console.log(user?.token)
+            if(!!user == true && user.token != ""){
+                return false
             }
-        }catch(error){
-            throw new Error("Token invalido")
+            return true
+        } catch (error) {
+            return false;
         }
-      
     }
 
     async create(matricula: number) {
         try {
-            // Gerar um token JWT
-            const token = jwt.sign({ matricula }, 'seu_segredo', { expiresIn: '1h' });
+            const token = jwt.sign({ matricula }, '2GxH#k8!wZs@p$U4', { expiresIn: '1h' });
 
-            // Atualizar o usuário com o token gerado
             await prisma.usuario.update({
                 where: {
                     matricula: matricula
@@ -39,16 +38,28 @@ class isAuth{
                 }
             });
 
-            return { status: status.CREATED, message: 'Token criado com sucesso', token: token };
+            return  token
         } catch (error) {
-            throw new Error("Erro ao criar token");
+            return false
         }
     }
-}
 
 
-    async delete(){
-
+    async delete(matricula: number){
+        try{
+            const delToken = ""
+            const token = await prisma.usuario.update({
+                where: {
+                    matricula : matricula
+                },
+                data:{
+                    token: delToken
+                }
+            })
+            return true
+        }catch(error){
+            return false
+        }
     }
 }
 

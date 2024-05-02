@@ -2,6 +2,7 @@ import { FastifyInstance, FastifyPluginOptions} from "fastify";
 import { CursoController } from "./controllers/curso.controller";
 import { UserController } from "./controllers/user.controller";
 import { CalcController } from "./controllers/calc.controller";
+import { verify } from "./Tools/IsAuth";
 
 const cursoController = new CursoController();
 const userController = new UserController();
@@ -34,8 +35,10 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
     fastify.delete("/user/:id", userController.handleDeleteOne);
 
-    //############################### calc ######################################//
+    //############################### isolated routes ######################################//
 
     fastify.post("/calc", calcController.handleCalc);
+
+    fastify.get("/token/{token}", userController.verifyLoged)
     
 }
