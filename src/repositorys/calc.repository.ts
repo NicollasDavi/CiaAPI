@@ -26,8 +26,7 @@ class CalcRepositor{
             const nome = curso.nome
             console.log(Valor_E)
             console.log(typeof(Valor_E))
-
-
+            
             function calc(Valor_E: number, Valor_M: number, parcelamento: number, desconto: number) {
                 const mensalidade = desconto == 0 ? (Valor_E + Valor_M) / parcelamento : ((Valor_E * (1 - (desconto / 100))) + Valor_M) / parcelamento;
                 const mensalidadeFormatada = mensalidade.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -38,7 +37,7 @@ class CalcRepositor{
                 const mensalidadeFormatada = mensalidade.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
                 return mensalidadeFormatada;
             }
-           
+            
             const mensalidade = parce == 1 ? calcV(Valor_E, Valor_M, desconto) : calc(Valor_E, Valor_M, parce, desconto);
             const valorEscola = parce == 1 ? (Valor_E / parce.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })) : (Valor_E).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
             const valorMaterial = parce == 1 ? (Valor_M / parce).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : (Valor_M).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })

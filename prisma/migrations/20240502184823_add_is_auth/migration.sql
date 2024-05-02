@@ -5,6 +5,8 @@ CREATE TABLE "Usuario" (
     "senha" TEXT NOT NULL,
     "admin" BOOLEAN NOT NULL DEFAULT false,
     "isN" BOOLEAN NOT NULL DEFAULT false,
+    "token" TEXT NOT NULL,
+    "isAuth" BOOLEAN NOT NULL,
 
     CONSTRAINT "Usuario_pkey" PRIMARY KEY ("matricula")
 );
@@ -34,7 +36,7 @@ CREATE TABLE "Curso" (
     "valor_M" DOUBLE PRECISION NOT NULL,
     "contra_T" TEXT NOT NULL,
     "integral" TEXT NOT NULL,
-    "imagem" BYTEA NOT NULL,
+    "imagem" TEXT NOT NULL,
 
     CONSTRAINT "Curso_pkey" PRIMARY KEY ("id")
 );

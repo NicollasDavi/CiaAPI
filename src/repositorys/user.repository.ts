@@ -57,7 +57,7 @@ class UserRepository{
         }
     }
 
-    async login(data: any) {  
+    async login(data: any) {
         const { matricula, password } = data;
         const matriculaInt = parseInt(matricula);
     
@@ -68,21 +68,24 @@ class UserRepository{
                     senha: password
                 }
             });
-
-            const isAdm = login?.admin
-            console.log(login?.admin)
+    
             if (login) {
-                if (isAdm){
-                    console.log("é true")
-                    return { URL: "http://localhost:3000/pages/home" };
-
-                }else{
-                    console.log("é false")
-
-                    return { URL: "http://localhost:3000/pages/home "};
-
+                const isAdm = login.admin;
+    
+                await prisma.usuario.update({
+                    where: {
+                        matricula: matriculaInt
+                    },
+                    data: {
+                        isAuth: true
+                    }
+                });
+    
+                if (isAdm) {
+                    return { URL: "http://localhost:3000/pages/admin-home" };
+                } else {
+                    return { URL: "http://localhost:3000/pages/user-home" };
                 }
-
             } else {
                 throw new Error("Credenciais inválidas");
             }
@@ -90,6 +93,4 @@ class UserRepository{
             throw new Error(error.message);
         }
     }
-    
-}
 export default new UserRepository();

@@ -1,0 +1,5 @@
+class Verificator{
+    async verify(){
+        
+    }
+}
