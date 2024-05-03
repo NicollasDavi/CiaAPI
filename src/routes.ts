@@ -35,6 +35,8 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
     fastify.delete("/user/:id", { preHandler: authMiddlewere } , userController.handleDeleteOne);
 
+    fastify.post("/logout/:id",  userController.handleLogOut)
+
     //############################### isolated routes ######################################//
 
     fastify.post("/calc", { preHandler: authMiddlewere } , calcController.handleCalc);

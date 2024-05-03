@@ -39,6 +39,21 @@ class UserRepository{
         }
     }
 
+    async logOut(id: number){
+        try {
+            const findedUser = await prisma.usuario.update({
+                where: {
+                    matricula: id
+                },
+                data:{
+                    isAuth : false
+                }
+            });
+        } catch (error: any) {
+            throw new Error(error.message);
+        }
+    }
+
     async getAll(){
         try{
             const findAllUsers = await prisma.usuario.findMany();
@@ -73,25 +88,30 @@ class UserRepository{
                     senha: password
                 }
             });
-    
+            const nome = login?.nome
+            console.log(nome)
             if (login) {
-                console.log("logou")
-
                 const isAdm = login.admin;
     
                 const verifyToken = await verify(matricula, login.token);
-                console.log("pasosu do token")
+
+                const isAuth = await prisma.usuario.update({
+                    where:{
+                        matricula: matriculaInt
+                    },
+                    data:{
+                        isAuth : true
+                    }
+                })
 
                 if (verifyToken) {
-                    console.log("entrou no verify");
 
                     const createdToken = await create(matricula);
                     if (isAdm) {
                         console.log(createdToken);
-                        console.log("entrou");
-                        return { URL: "http://localhost:3000/pages/home", createdToken };
+                        return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome};
                     } else {
-                        return { URL: "http://localhost:3000/pages/home", createdToken };
+                        return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome };
                     }
                 }else{
                     console.log("ja tinha token")
@@ -101,9 +121,9 @@ class UserRepository{
                     if (isAdm) {
                         console.log(createdToken);
                         console.log("entrou");
-                        return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken };
+                        return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome};
                     } else {
-                        return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken };
+                        return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome};
                     }
                 }
             } else {

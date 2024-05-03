@@ -23,6 +23,18 @@ class UserController{
         }
     }
 
+    async handleLogOut(request: any, reply: any){
+        console.log("Chegou auqi")
+        const id = parseInt(request.params.id);
+        try{
+            const createUserService = new CreateUserService();
+            const result = await createUserService.executeLogOut(id);
+            return reply.send(result);
+        } catch (error: any) {
+            return reply.status(400).send({ error: error.message });
+        }
+    }
+
     async handleGetAll(request: any, reply: any){
         try{
             const createUserService = new CreateUserService();

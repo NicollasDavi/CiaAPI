@@ -1,6 +1,7 @@
 import { z } from "zod";
 import userRepository from "../repositorys/user.repository";
 import { Usuario } from "@prisma/client";
+import { remove } from "../Tools/IsAuth";
 
 class CreateUserService{
 
@@ -34,6 +35,15 @@ class CreateUserService{
     async executeGetOne(id: number){
         try {
             return await userRepository.getOne(id);
+        } catch (error: any) {
+            throw new Error("Erro de validação: " + error.errors);
+        }
+    }
+
+    async executeLogOut(id: number){
+        remove(id)
+        try {
+            return await userRepository.logOut(id);
         } catch (error: any) {
             throw new Error("Erro de validação: " + error.errors);
         }
