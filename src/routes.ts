@@ -2,11 +2,14 @@ import { FastifyInstance, FastifyPluginOptions} from "fastify";
 import { CursoController } from "./controllers/curso.controller";
 import { UserController } from "./controllers/user.controller";
 import { CalcController } from "./controllers/calc.controller";
+import { DocController } from "./controllers/doc.controller";
 import { authMiddlewere } from "./middleweres/auth.middlewere";
 
 const cursoController = new CursoController();
 const userController = new UserController();
 const calcController = new CalcController();
+const docController = new DocController();
+
 
 
 export async function routes(fastify: FastifyInstance, options: FastifyPluginOptions) {
@@ -42,5 +45,9 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
     fastify.post("/calc", { preHandler: authMiddlewere } , calcController.handleCalc);
 
     fastify.get("/token/{token}", { preHandler: authMiddlewere } , userController.verifyLoged)
+
+    //############################### docs ######################################//
+
+    fastify.post("/doc", {preHandler: authMiddlewere}, docController.handleCreate)
     
 }

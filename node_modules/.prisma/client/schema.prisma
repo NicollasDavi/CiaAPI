@@ -15,6 +15,7 @@ model Usuario{
   isN Boolean @default(false)
   token String @default(" ")
   isAuth Boolean @default(false)
+  paginas Pagina[]
 }
 
 model Setores{
@@ -56,4 +57,22 @@ model Unidades{
   numeroTel String
   numeroWpp String
   horario String
+}
+
+model Pagina {
+  id         Int           @id @default(autoincrement())
+  nome       String
+  publica    Boolean       @default(false)
+  userId     Int
+  usuario    Usuario       @relation(fields: [userId], references: [matricula])
+  tipos      TipoDocumento[]
+}
+
+model TipoDocumento {
+  id          Int            @id @default(autoincrement())
+  type        Int
+  text        String
+  img         String
+  paginaId    Int
+  pagina      Pagina         @relation(fields: [paginaId], references: [id])
 }

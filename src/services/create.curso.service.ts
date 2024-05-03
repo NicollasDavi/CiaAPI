@@ -47,7 +47,4 @@ class CreateCursoService {
 }
 
 export { CreateCursoService };
-    function uuidv4() {
-        throw new Error("Function not implemented.");
-    }
 
