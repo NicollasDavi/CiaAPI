@@ -17,7 +17,6 @@ class DocRepository{
                   }))
                 }
               },
-              // Incluir tipos de documentos associados à página criada
               include: {
                 tipos: true
               }
