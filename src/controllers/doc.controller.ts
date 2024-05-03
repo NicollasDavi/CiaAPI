@@ -6,6 +6,12 @@ class DocController{
         const createDocService = new CreateDocService();
         const result = await createDocService.executeCreate(body);
     }
+
+    async handleGetAll(request: any, reply: any){
+        const id = parseInt(request.params.id);
+        const createDocService = new CreateDocService();
+        const result = await createDocService.executeGetAll(id);
+    }
 }
 
 export { DocController }
