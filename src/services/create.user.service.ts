@@ -26,7 +26,7 @@ class CreateUserService{
 
         try {
             const validatedData = createUserSchema.parse(data);
-            return userRepository.save(validatedData);
+            return userRepository.save(data);
         } catch (error: any) {
             throw new Error("Erro de validação: " + error.errors);
         }
