@@ -7,7 +7,6 @@ env/
 .venv/
 
 node_modules/
-# Arquivos de log e cache
 *.log
 __pycache__/
 
@@ -15,7 +14,6 @@ __pycache__/
 *.cfg
 
 # Arquivos de chave de API ou credenciais sensíveis
-.env
 
 # Arquivos temporários
 *.tmp
