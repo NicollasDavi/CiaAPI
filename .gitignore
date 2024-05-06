@@ -13,6 +13,9 @@ __pycache__/
 # Arquivos de configuração
 *.cfg
 
+.js
+
+
 # Arquivos de chave de API ou credenciais sensíveis
 
 # Arquivos temporários
