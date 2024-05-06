@@ -9,7 +9,7 @@ class CreateCalcService{
 
     
         try {
-            return calcRepository.calcularMensalidade(data)
+            return calcRepository.calcularMensalidadeDoCurso(data)
         } catch (error) {
             console.error("Erro ao executar o cálculo:", error instanceof z.ZodError ? error.errors : error);
         }

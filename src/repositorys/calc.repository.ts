@@ -11,7 +11,7 @@ function calcularMensalidadeFormatada(mensalidade: number) {
     return mensalidade.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
 
-class CalculadoraDeMensalidade {
+class CalcRepository {
     async calcularMensalidadeDoCurso(data: any) {
         const { id, unidade, turno, parcelamento, desconto } = data;
         try {
@@ -39,8 +39,7 @@ class CalculadoraDeMensalidade {
     }
 
     async calcularInverso() {
-        // Implemente a lógica para calcular o inverso, se necessário
     }
 }
 
-export default new CalculadoraDeMensalidade();
+export default new CalcRepository();
