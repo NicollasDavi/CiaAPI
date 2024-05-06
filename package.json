@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "buil": "npx tsc src/server.ts",
+    "build": "npx tsc src/server.ts",
     "prod": "node src/server.js",
     "dev": "tsx src/server.ts"
 
