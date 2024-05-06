@@ -76,9 +76,7 @@ class UserRepository{
         }
     }
 
-    async login(data: any) {
-        console.log("entoru no login")
-        const { matricula, password } = data;
+    async login(data: any) {        const { matricula, password } = data;
         const matriculaInt = parseInt(matricula);
     
         try {
@@ -89,7 +87,6 @@ class UserRepository{
                 }
             });
             const nome = login?.nome
-            console.log(nome)
             if (login) {
                 const isAdm = login.admin;
     
@@ -108,19 +105,18 @@ class UserRepository{
 
                     const createdToken = await create(matricula);
                     if (isAdm) {
-                        console.log(createdToken);
+            
                         return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome};
                     } else {
                         return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome };
                     }
                 }else{
-                    console.log("ja tinha token")
-                    remove(matricula)
+                            remove(matricula)
 
                     const createdToken = await create(matricula);
                     if (isAdm) {
-                        console.log(createdToken);
-                        console.log("entrou");
+            
+            
                         return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome};
                     } else {
                         return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome};
@@ -139,10 +135,10 @@ class UserRepository{
             const segredo = '2GxH#k8!wZs@p$U4';
             
             const decodedToken = jwt.verify(token, segredo);
-            console.log('Token decodificado:', decodedToken);
+
             
             const matricula = decodedToken.matricula;
-            console.log('Matrícula do usuário:', matricula);
+
             
             const user = await prisma.usuario.delete({
                 where: {

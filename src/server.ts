@@ -15,7 +15,6 @@ app.register(fastifyReplyFrom);
 
 app.register(routes);
 
-// Obtém o endereço IP do servidor
 const os = require('os');
 const interfaces = os.networkInterfaces();
 let ipAddress = '';

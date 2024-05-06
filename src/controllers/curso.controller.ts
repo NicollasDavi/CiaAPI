@@ -47,7 +47,6 @@ class CursoController {
     async handleUpdate(request: any, reply: any){
         
         const id = request.params.id;
-        console.log(id)
 
         const { body } = request;
         try {

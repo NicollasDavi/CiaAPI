@@ -33,7 +33,6 @@ class CalcRepository {
 
             return { mensalidade: mensalidadeFormatada, valorEscola, valorMaterial };
         } catch (error) {
-            console.error("Erro ao buscar o curso:", error);
             throw new Error("Ocorreu um erro ao calcular a mensalidade do curso.");
         }
     }

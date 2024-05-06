@@ -24,7 +24,6 @@ class UserController{
     }
 
     async handleLogOut(request: any, reply: any){
-        console.log("Chegou auqi")
         const id = parseInt(request.params.id);
         try{
             const createUserService = new CreateUserService();

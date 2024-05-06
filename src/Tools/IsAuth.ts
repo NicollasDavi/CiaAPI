@@ -6,7 +6,6 @@ const prisma = new PrismaClient();
 
 class isAuth{
     async verify(matricula: number, token: string) {
-        console.log(token)
         try {
             const user = await prisma.usuario.findUnique({
                 where: {
@@ -14,7 +13,6 @@ class isAuth{
                     token: token,
                 }
             });
-            console.log(user?.token)
             if(!!user == true && user.token != ""){
                 return false
             }

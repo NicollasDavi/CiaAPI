@@ -1,8 +1,12 @@
+import { PrismaClient } from "@prisma/client";
 import * as dotenv from 'dotenv';
-import * as jwt from 'jsonwebtoken'
+import * as jwt from 'jsonwebtoken';
+
+const prisma = new PrismaClient();
+
 dotenv.config();
 
-export const authMiddlewere = (req: any, res: any, next: any) => {
+export async function authMiddlewere(req: any, res: any, next: any) {
     try {
         const { authorization } = req.headers;
 
@@ -24,15 +28,24 @@ export const authMiddlewere = (req: any, res: any, next: any) => {
 
         const segredo = '2GxH#k8!wZs@p$U4';
 
-        jwt.verify(token, segredo, (error: any, decoded: any) => {
+        jwt.verify(token, segredo, async (error: any, decoded: any) => {
             if (error) {
                 return res.status(401).send();
             }
-            console.log("token valido")
-            next();
+
+            try {
+                const user = await prisma.usuario.findUnique({
+                    where: { matricula: decoded.matricula }
+                });
+                if (!user) {
+                    return res.status(401).send();
+                }
+                next();
+            } catch (error) {
+                throw new Error("Erro ao buscar usuário no banco de dados");
+            }
         });
     } catch (error) {
-        throw new Error("Erro ao validar token")
+        throw new Error("Erro ao validar token");
     }
-    
-};
+}
