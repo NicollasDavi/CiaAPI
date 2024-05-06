@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx src/server.ts"
-  },
+    "dev": "npx tsc src/server.ts && node src/server.js"
+  }
+,  
   "author": "",
   "license": "ISC",
   "dependencies": {
