@@ -22,7 +22,7 @@ class DocRepository{
                 tipos: true
               }
             });
-        
+            console.log(pagina)
             return {pagina};
           } catch (error) {
             throw error;
@@ -30,18 +30,29 @@ class DocRepository{
         }
 
 
-        async getAll(id : number){
-          try{
-            const userDocs = await prisma.pagina.findMany({
-              where:{
-                userId : id
-              }
-            })
-            return {userDocs}
-          }catch(error: any){
-            throw new Error("Erro ao encontrar Docs")
+        async getAll(){
+          try {
+              const allDocs = await prisma.pagina.findMany();
+              console.log(allDocs)
+              return allDocs
+          } catch (error: any) {
+              throw new Error("Erro na consulta")
           }
+      }
+
+      async getOne(id: number){
+        try{
+          const docTypes = await prisma.tipoDocumento.findMany({
+            where:{
+              paginaId : id
+            }
+          })
+          return {docTypes}
+        }catch(error : any){
+          throw new Error("Erro na consulta")
         }
+      }
+      
         
     }
 

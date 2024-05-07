@@ -14,18 +14,7 @@ class CreateUserService{
     };
 
     async executeCreate(data : Usuario){
-        const createUserSchema = z.object({
-            matricula: z.number(),
-            nome: z.string(),
-            senha: z.string(),
-            admin: z.boolean(),
-            isN: z.boolean(),
-            token: z.string(),
-            isAuth: z.boolean()
-        });
-
         try {
-            const validatedData = createUserSchema.parse(data);
             return userRepository.save(data);
         } catch (error: any) {
             throw new Error("Erro de validação: " + error.errors);

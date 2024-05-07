@@ -20,7 +20,7 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
     fastify.get("/curso/:id", { preHandler: authMiddlewere }, cursoController.handleGetOne);
 
-    fastify.get("/cursos", { preHandler: authMiddlewere } , cursoController.handleGetAll);
+    fastify.get("/cursos" , cursoController.handleGetAll);
 
     fastify.delete("/curso/delete/:id", { preHandler: authMiddlewere } , cursoController.handleDeleteOne);
 
@@ -28,7 +28,7 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
     //############################### User ######################################//
 
-    fastify.post("/user", { preHandler: authMiddlewere }, userController.handleCreate);
+    fastify.post("/user", userController.handleCreate);
 
     fastify.post("/login", userController.handleLogin);
 
@@ -50,7 +50,10 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
     fastify.post("/doc", {preHandler: authMiddlewere}, docController.handleCreate)
 
-    fastify.get("/docs/:id", docController.handleGetAll)
+    fastify.get("/docs",{preHandler: authMiddlewere},  docController.handleGetAll)
+
+    fastify.get("/doc/:id",  docController.handleGetOne)
+
 
     
 }

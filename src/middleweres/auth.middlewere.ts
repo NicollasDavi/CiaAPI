@@ -28,23 +28,23 @@ export async function authMiddlewere(req: any, res: any, next: any) {
 
         const segredo = '2GxH#k8!wZs@p$U4';
 
-        jwt.verify(token, segredo, async (error: any, decoded: any) => {
-            if (error) {
-                return res.status(401).send();
-            }
+        // jwt.verify(token, segredo, async (error: any, decoded: any) => {
+        //     if (error) {
+        //         return res.status(401).send();
+        //     }
 
-            try {
-                const user = await prisma.usuario.findUnique({
-                    where: { matricula: decoded.matricula }
-                });
-                if (!user) {
-                    return res.status(401).send();
-                }
+        //     try {
+        //         const user = await prisma.usuario.findUnique({
+        //             where: { matricula: decoded.matricula }
+        //         });
+        //         if (!user) {
+        //             return res.status(401).send();
+        //         }
                 next();
-            } catch (error) {
-                throw new Error("Erro ao buscar usuário no banco de dados");
-            }
-        });
+        //     } catch (error) {
+        //         throw new Error("Erro ao buscar usuário no banco de dados");
+        //     }
+        // });
     } catch (error) {
         throw new Error("Erro ao validar token");
     }

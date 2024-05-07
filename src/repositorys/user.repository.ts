@@ -2,6 +2,7 @@ import { Curso, PrismaClient, Usuario } from "@prisma/client";
 import { create, remove, verify } from "../Tools/IsAuth";
 import { decode } from "jsonwebtoken";
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 
 const prisma = new PrismaClient();
@@ -10,11 +11,14 @@ class UserRepository{
     async save(user : Usuario){
         try {
             const {matricula, nome, senha, admin, isN } = user;
+
+            const hashedPassword = await bcrypt.hash(senha, 10)
+
             const newUser = await prisma.usuario.create({
                 data: {
                     matricula,
                     nome,
-                    senha,
+                    senha : hashedPassword,
                     admin,
                     isN
                 }

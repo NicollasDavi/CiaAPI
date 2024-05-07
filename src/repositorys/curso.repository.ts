@@ -43,6 +43,7 @@ class CursoRepository{
     async getAll(){
         try {
             const allCursos = await prisma.curso.findMany();
+            console.log(allCursos)
             return allCursos
         } catch (error: any) {
             throw new Error("Erro na consulta")
