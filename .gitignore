@@ -14,7 +14,7 @@ __pycache__/
 *.cfg
 
 .ts
-
+.env
 
 # Arquivos de chave de API ou credenciais sensíveis
 
