@@ -2,6 +2,7 @@ import fastify from 'fastify';
 import fastifyCors from '@fastify/cors';
 import fastifyReplyFrom from '@fastify/reply-from';
 import { routes } from './routes';
+import fetch from 'node-fetch';
 
 const app = fastify();
 
@@ -15,23 +16,32 @@ app.register(fastifyReplyFrom);
 
 app.register(routes);
 
-const os = require('os');
-const interfaces = os.networkInterfaces();
-let ipAddress = '';
-Object.keys(interfaces).forEach((interfaceName) => {
-  interfaces[interfaceName].forEach((networkInterface : any) => {
-    if (networkInterface.family === 'IPv4' && !networkInterface.internal) {
-      ipAddress = networkInterface.address;
-    }
-  });
-});
-
-const port = process.env.PORT ? Number(process.env.PORT) : 4000;
-
-app.listen({ port: port, host: ipAddress }, (err, address) => {
-  if (err) {
-    console.error(err);
-    process.exit(1);
+async function getPublicIPAddress() {
+  try {
+    const response = await fetch('https://api.ipify.org?format=json');
+    const data = await response.json();
+    return data.ip;
+  } catch (error) {
+    console.error('Erro ao obter endereço IP público:', error);
+    return null;
   }
-  console.log(`Server listening on ${address}`);
-});
+}
+
+async function startServer() {
+  const publicIPAddress = await getPublicIPAddress();
+  if (!publicIPAddress) {
+    console.error('Não foi possível obter o endereço IP público. O servidor não será iniciado.');
+    return;
+  }
+
+  const port = process.env.PORT ? Number(process.env.PORT) : 4000;
+  app.listen({ port: port, host: publicIPAddress }, (err, address) => {
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    }
+    console.log(`Servidor ouvindo em ${address}`);
+  });
+}
+
+startServer();
