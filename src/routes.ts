@@ -20,7 +20,7 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
     fastify.get("/curso/:id", { preHandler: authMiddlewere }, cursoController.handleGetOne);
 
-    fastify.get("/cursos" , cursoController.handleGetAll);
+    fastify.get("/cursos" ,{ preHandler: authMiddlewere }, cursoController.handleGetAll);
 
     fastify.delete("/curso/delete/:id", { preHandler: authMiddlewere } , cursoController.handleDeleteOne);
 
