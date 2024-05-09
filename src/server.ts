@@ -2,7 +2,7 @@ import fastify from 'fastify';
 import fastifyCors from '@fastify/cors';
 import fastifyReplyFrom from '@fastify/reply-from';
 import { routes } from './routes';
-import fs from 'fs';
+import * as fs from 'fs'
 import path from 'path';
 
 const app = fastify();
