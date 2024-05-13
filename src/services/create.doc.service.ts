@@ -18,7 +18,7 @@ class CreateDocService {
         }
     }
 
-    async executeGetOne(id : number){
+    async executeGetOne(id : string){
         try{
             return docRepository.getOne(id);
         }catch(error: any){

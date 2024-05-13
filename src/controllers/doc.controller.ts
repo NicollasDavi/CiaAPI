@@ -14,7 +14,7 @@ class DocController{
     }
 
     async handleGetOne(request: any, reply: any){
-        const id = parseInt(request.params.id);
+        const id = request.params.id;
         const createDocService = new CreateDocService();
         const result = await createDocService.executeGetOne(id);
         return reply.send(result);
