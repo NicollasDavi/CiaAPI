@@ -11,6 +11,15 @@ class CreateValueService{
         }
     }
 
+    async executeGetAll() {
+
+        try {
+            return valueRepository.getAll();
+        } catch (error: any) {
+            throw new Error("Erro de validação: " + error.errors);
+        }
+    }
+
     
 }
 

@@ -25,7 +25,7 @@ class ValueRepository{
 
     async getAll(){
         try {
-            const allCursos = await prisma.curso.findMany();
+            const allCursos = await prisma.cursoValor.findMany();
             console.log(allCursos)
             return allCursos
         } catch (error: any) {

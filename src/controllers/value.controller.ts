@@ -12,6 +12,16 @@ class ValueController{
             return reply.status(400).send({ error: error.message });
         }
     }
+
+    async handleGetAll(request: any, reply: any){
+        try{
+            const createUserService = new CreateValueService();
+            const result = await createUserService.executeGetAll();
+            return reply.send(result);
+        }catch(error: any){
+            return reply.status(400).send({ error: error.message})
+        }
+    }
 }
 
 export {ValueController}

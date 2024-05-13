@@ -61,6 +61,8 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
     fastify.post("/valor", { preHandler : authMiddlewere} , valueController.handleCreate)
 
+    fastify.get("/valores", {preHandler : authMiddlewere}, valueController.handleGetAll)
+
 
 
 
