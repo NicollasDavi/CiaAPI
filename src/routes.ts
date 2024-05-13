@@ -4,11 +4,13 @@ import { UserController } from "./controllers/user.controller";
 import { CalcController } from "./controllers/calc.controller";
 import { DocController } from "./controllers/doc.controller";
 import { authMiddlewere } from "./middleweres/auth.middlewere";
+import { ValueController } from "./controllers/value.controller";
 
 const cursoController = new CursoController();
 const userController = new UserController();
 const calcController = new CalcController();
 const docController = new DocController();
+const valueController = new ValueController();
 
 
 
@@ -46,7 +48,6 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
     fastify.get("/token/{token}", { preHandler: authMiddlewere } , userController.verifyLoged)
 
-    fastify.post("/valor/", { preHandler : authMiddlewere} , cursoController.handleCreateValue)
 
     //############################### docs ######################################//
 
@@ -55,6 +56,10 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
     fastify.get("/docs",{preHandler: authMiddlewere},  docController.handleGetAll)
 
     fastify.get("/doc/:id",  docController.handleGetOne)
+
+    //############################### valores ######################################//
+
+    fastify.post("/valor", { preHandler : authMiddlewere} , valueController.handleCreate)
 
 
 

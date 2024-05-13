@@ -40,7 +40,7 @@ class DocRepository{
           }
       }
 
-      async getOne(id: number){
+      async getOne(id: string){
         try{
           const docTypes = await prisma.tipoDocumento.findMany({
             where:{

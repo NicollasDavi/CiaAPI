@@ -24,17 +24,7 @@ class CursoController {
         }
     }
 
-    async handleCreateValue(request: any, reply: any) {
-        const { body } = request;
-        try {
-            const createCursoService = new CreateCursoService();
-            const result = await createCursoService.executeCreateValue(body);
-            return reply.send(result);
-           
-        } catch (error: any) {
-            return reply.status(400).send({ error: error.message });
-        }
-    }
+   
 
     async handleGetOne(request: any, reply: any){
         const id = request.params.id;

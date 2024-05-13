@@ -67,6 +67,7 @@ model Unidades{
 
 model Pagina {
   id String @id @default(uuid()) @map(name: "id")
+  nome String
   publica    Boolean       @default(false)
   userId     Int
   usuario    Usuario       @relation(fields: [userId], references: [matricula])

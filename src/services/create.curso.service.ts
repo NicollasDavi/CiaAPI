@@ -11,15 +11,6 @@ class CreateCursoService {
         }
     }
 
-    async executeCreateValue(data: any) {
-
-        try {
-            return cursoRepository.saveValue(data);
-        } catch (error: any) {
-            throw new Error("Erro de validação: " + error.errors);
-        }
-    }
-
     async executeGetOne(id : string){
         try {
             return cursoRepository.getOne(id);
