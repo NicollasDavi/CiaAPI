@@ -1,12 +1,36 @@
+import { PrismaClient } from "@prisma/client";
 import { CreateCursoService } from "../services/create.curso.service";
-
+const prisma = new PrismaClient();
 class CursoController {
     async handleCreate(request: any, reply: any) {
         const { body } = request;
         try {
+            const cursoExistente = await prisma.curso.findFirst({
+                where: {
+                    nome : body.nome,
+                    unidade: body.unidade
+                }
+            })
+            console.log(cursoExistente)
+            if(!cursoExistente){
+                const createCursoService = new CreateCursoService();
+                const result = await createCursoService.executeCreate(body);
+                return reply.send(result);
+            }else{
+                return "Curso já existente"
+            }
+        } catch (error: any) {
+            return reply.status(400).send({ error: error.message });
+        }
+    }
+
+    async handleCreateValue(request: any, reply: any) {
+        const { body } = request;
+        try {
             const createCursoService = new CreateCursoService();
-            const result = await createCursoService.executeCreate(body);
+            const result = await createCursoService.executeCreateValue(body);
             return reply.send(result);
+           
         } catch (error: any) {
             return reply.status(400).send({ error: error.message });
         }

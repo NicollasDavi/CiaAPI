@@ -28,6 +28,30 @@ class CursoRepository{
         }
     }
 
+    async saveValue(curso: Curso){
+        try {
+            const { nome, informacao, valor_E, valor_M, contra_T, integral, unidade, turno, imagem, matricula } = curso;
+            const newCurso = await prisma.cursoValor.create({
+                data: {
+                    matricula,
+                    nome,
+                    unidade,
+                    turno,
+                    informacao,
+                    valor_E,
+                    valor_M,
+                    contra_T,
+                    integral,
+                    imagem,
+                },
+            });
+    
+            return newCurso;
+        } catch (error) {
+            throw error;
+        }
+    }
+
     async getOne(id: string) {
     try {
         return( await prisma.curso.findUnique({

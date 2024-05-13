@@ -46,6 +46,8 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
     fastify.get("/token/{token}", { preHandler: authMiddlewere } , userController.verifyLoged)
 
+    fastify.post("/valor/", { preHandler : authMiddlewere} , cursoController.handleCreateValue)
+
     //############################### docs ######################################//
 
     fastify.post("/doc", {preHandler: authMiddlewere}, docController.handleCreate)
@@ -53,6 +55,8 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
     fastify.get("/docs",{preHandler: authMiddlewere},  docController.handleGetAll)
 
     fastify.get("/doc/:id",  docController.handleGetOne)
+
+
 
 
     

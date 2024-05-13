@@ -37,11 +37,15 @@ model Curso{
   unidade String
   turno String
   informacao String
+  imagem String
+}
+model CursoValor{
+  id String @id @default(uuid()) @map(name: "id")
   valor_E Float
   valor_M Float
-  contra_T String
-  integral String
-  imagem String
+  nome String
+  unidade String
+  turno String
 }
 
 model Professores{
@@ -62,8 +66,7 @@ model Unidades{
 }
 
 model Pagina {
-  id         Int           @id @default(autoincrement())
-  nome       String
+  id String @id @default(uuid()) @map(name: "id")
   publica    Boolean       @default(false)
   userId     Int
   usuario    Usuario       @relation(fields: [userId], references: [matricula])
@@ -75,6 +78,6 @@ model TipoDocumento {
   type        Int
   text        String
   img         String
-  paginaId    Int
+  paginaId    String
   pagina      Pagina         @relation(fields: [paginaId], references: [id])
 }
