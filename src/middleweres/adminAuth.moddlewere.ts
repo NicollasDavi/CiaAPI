@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 
 dotenv.config();
 
-export async function authMiddlewere(req: any, res: any, next: any) {
+export async function adminAuthMiddlewere(req: any, res: any, next: any) {
     try {
         const { authorization } = req.headers;
 
@@ -40,7 +40,11 @@ export async function authMiddlewere(req: any, res: any, next: any) {
                 if (!user) {
                     return res.status(401).send();
                 }
-                next();
+                if(user.admin == true){
+                    next();
+                }else{
+                    return res.status(403).send();
+                }
             } catch (error) {
                 throw new Error("Erro ao buscar usuário no banco de dados");
             }

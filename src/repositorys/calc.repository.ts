@@ -15,7 +15,7 @@ class CalcRepository {
     async calcularMensalidadeDoCurso(data: any) {
         const { id, unidade, turno, parcelamento, desconto } = data;
         try {
-            const curso = await prisma.curso.findUnique({
+            const curso = await prisma.cursoValor.findUnique({
                 where: { id: id }
             });
 

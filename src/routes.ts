@@ -5,6 +5,8 @@ import { CalcController } from "./controllers/calc.controller";
 import { DocController } from "./controllers/doc.controller";
 import { authMiddlewere } from "./middleweres/auth.middlewere";
 import { ValueController } from "./controllers/value.controller";
+import { adminAuthMiddlewere } from "./middleweres/adminAuth.moddlewere";
+
 
 const cursoController = new CursoController();
 const userController = new UserController();
@@ -13,18 +15,17 @@ const docController = new DocController();
 const valueController = new ValueController();
 
 
-
 export async function routes(fastify: FastifyInstance, options: FastifyPluginOptions) {
 
     //############################### User ######################################//
 
-    fastify.post("/curso", { preHandler: authMiddlewere }, cursoController.handleCreate);
+    fastify.post("/curso", { preHandler: adminAuthMiddlewere }, cursoController.handleCreate);
 
     fastify.get("/curso/:id", { preHandler: authMiddlewere }, cursoController.handleGetOne);
 
     fastify.get("/cursos" ,{ preHandler: authMiddlewere }, cursoController.handleGetAll);
 
-    fastify.delete("/curso/delete/:id", { preHandler: authMiddlewere } , cursoController.handleDeleteOne);
+    fastify.delete("/curso/delete/:id", { preHandler: adminAuthMiddlewere } , cursoController.handleDeleteOne);
 
     fastify.put("/curso/:id", { preHandler: authMiddlewere } , cursoController.handleUpdate);
 
@@ -38,7 +39,7 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
     fastify.get("/users",{ preHandler: authMiddlewere } , userController.handleGetAll);
 
-    fastify.delete("/user/:id", { preHandler: authMiddlewere } , userController.handleDeleteOne);
+    fastify.delete("/user/:id", { preHandler: adminAuthMiddlewere } , userController.handleDeleteOne);
 
     fastify.post("/logout/:id",  userController.handleLogOut)
 
@@ -47,7 +48,6 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
     fastify.post("/calc", { preHandler: authMiddlewere } , calcController.handleCalc);
 
     fastify.get("/token/{token}", { preHandler: authMiddlewere } , userController.verifyLoged)
-
 
     //############################### docs ######################################//
 
@@ -59,12 +59,8 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
     //############################### valores ######################################//
 
-    fastify.post("/valor", { preHandler : authMiddlewere} , valueController.handleCreate)
+    fastify.post("/valor", { preHandler : adminAuthMiddlewere} , valueController.handleCreate)
 
-    fastify.get("/valores", {preHandler : authMiddlewere}, valueController.handleGetAll)
-
-
-
-
+    fastify.get("/valores", {preHandler : authMiddlewere}, valueController.handleGetAll)   
     
 }
