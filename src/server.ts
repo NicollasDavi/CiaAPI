@@ -26,9 +26,9 @@ Object.keys(interfaces).forEach((interfaceName) => {
   });
 });
 
-const port = process.env.PORT ? Number(process.env.PORT) : 29;
+const port = process.env.PORT ? Number(process.env.PORT) : 4000;
 
-app.listen({ port: port, host: '15.228.38.79' }, (err, address) => {
+app.listen({ port: port, host: '127.0.0.1' }, (err, address) => {
   if (err) {
     console.error(err);
     process.exit(1);
