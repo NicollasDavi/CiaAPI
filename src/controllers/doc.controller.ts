@@ -5,6 +5,7 @@ class DocController{
         const { body } = request
         const createDocService = new CreateDocService();
         const result = await createDocService.executeCreate(body);
+        return reply.send(result);
     }
 
     async handleGetAll(request: any, reply: any){

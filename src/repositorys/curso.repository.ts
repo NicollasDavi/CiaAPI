@@ -7,17 +7,24 @@ class CursoRepository{
     async save(curso: Curso){
         try {
             const { nome, informacao,unidade, turno, imagem, matricula } = curso;
+       
             const newCurso = await prisma.curso.create({
                 data: {
-                    matricula,
-                    nome,
-                    unidade,
-                    turno,
-                    informacao,
-                    imagem,
+                  matricula: matricula,
+                  nome: nome,
+                  unidade: unidade,
+                  turno: turno,
+                  informacao: informacao,
+                  imagem: imagem,
+                  unidades: {
+                    create: [
+                      { unidade: { connect: { codigo: unidade } } },
+                    ],
+                  },
                 },
-            });
-    
+              });
+              
+              console.log(newCurso)
             return newCurso;
         } catch (error) {
             throw error;

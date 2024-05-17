@@ -69,5 +69,8 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
     fastify.post("/unidade", unidadeController.handleCreate)
 
+    fastify.get("/unidades", unidadeController.handleGetAll)
+
+
     
 }

@@ -9,6 +9,14 @@ class CreateUnidadeService {
             throw new Error("Erro de validação: " + error.errors);
         }
     }
+
+    async executeGetAll(){
+        try {
+            return unidadeRepository.getAll();
+        } catch (error: any) {
+            throw new Error("Erro de Validação" + error.errors)
+        }
+    }
 }
 
 export { CreateUnidadeService };

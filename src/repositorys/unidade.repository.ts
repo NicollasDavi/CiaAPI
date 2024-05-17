@@ -14,13 +14,23 @@ class UnidadeRepository {
           numeroTel: data.numeroTel,
           numeroWpp: data.numeroWpp,
           vcep: data.vcep,
-          
+          imagem: data.imagem
         },
       });
       console.log(unidade);
       return { unidade };
     } catch (error) {
       throw error;
+    }
+  }
+
+  async getAll(){
+    try {
+      const unidades = await prisma.unidades.findMany();
+      console.log(unidades)
+      return unidades
+    } catch (error: any) {
+      throw new Error("Deu rium patrão")
     }
   }
 }
