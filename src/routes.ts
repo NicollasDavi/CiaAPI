@@ -5,6 +5,7 @@ import { CalcController } from "./controllers/calc.controller";
 import { DocController } from "./controllers/doc.controller";
 import { authMiddlewere } from "./middleweres/auth.middlewere";
 import { ValueController } from "./controllers/value.controller";
+import {UnidadeController} from "./controllers/unidade.controller"
 import { adminAuthMiddlewere } from "./middleweres/adminAuth.moddlewere";
 
 
@@ -13,6 +14,7 @@ const userController = new UserController();
 const calcController = new CalcController();
 const docController = new DocController();
 const valueController = new ValueController();
+const unidadeController = new UnidadeController();
 
 
 export async function routes(fastify: FastifyInstance, options: FastifyPluginOptions) {
@@ -62,5 +64,10 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
     fastify.post("/valor", { preHandler : adminAuthMiddlewere} , valueController.handleCreate)
 
     fastify.get("/valores", {preHandler : authMiddlewere}, valueController.handleGetAll)   
+
+    //############################### unidades ######################################//
+
+    fastify.post("/unidade", unidadeController.handleCreate)
+
     
 }

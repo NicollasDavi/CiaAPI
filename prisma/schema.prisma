@@ -30,40 +30,54 @@ model Setores{
   contato String
 }
 
-model Curso{
-  id String @id @default(uuid()) @map(name: "id")
-  matricula Int
-  nome String
-  unidade String
-  turno String
+model Curso {
+  id         String   @id @default(uuid()) @map(name: "id")
+  matricula  Int
+  nome       String
+  unidade    String
+  turno      String
   informacao String
-  imagem String
+  imagem     String
+  unidades   CursoUnidade[] // Relacionamento muitos-para-muitos
 }
-model CursoValor{
-  id String @id @default(uuid()) @map(name: "id")
+
+model CursoValor {
+  id      String @id @default(uuid()) @map(name: "id")
   valor_E Float
   valor_M Float
-  nome String
+  nome    String
   unidade String
-  turno String
+  turno   String
 }
 
-model Professores{
-  nome String @id
+model Professores {
+  nome    String @id
   materia String
-  tit String
-  foto String
+  tit     String
+  foto    String
 }
 
-model Unidades{
-  codigo String @id
-  nome String
+model Unidades {
+  codigo      String         @id
+  nome        String
   informacoes String
-  vcep String
-  numeroTel String
-  numeroWpp String
-  horario String
+  vcep        String
+  numeroTel   String
+  numeroWpp   String
+  horario     String
+  imagem     String
+  cursos      CursoUnidade[] // Relacionamento muitos-para-muitos
 }
+
+model CursoUnidade {
+  cursoId   String
+  unidadeId String
+  curso     Curso   @relation(fields: [cursoId], references: [id])
+  unidade   Unidades @relation(fields: [unidadeId], references: [codigo])
+
+  @@id([cursoId, unidadeId])
+}
+
 
 model Pagina {
   id String @id @default(uuid()) @map(name: "id")

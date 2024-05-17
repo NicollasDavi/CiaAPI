@@ -108,22 +108,26 @@ class UserRepository{
                 if (verifyToken) {
 
                     const createdToken = await create(matricula);
+                    console.log({ URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm})
+
                     if (isAdm) {
             
-                        return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome};
+                        return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm};
                     } else {
-                        return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome };
+                        return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm };
+                        
                     }
                 }else{
                             remove(matricula)
 
                     const createdToken = await create(matricula);
+                    console.log({ URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm})
+
                     if (isAdm) {
             
-            
-                        return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome};
+                        return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm};
                     } else {
-                        return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome};
+                        return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm};
                     }
                 }
             } else {
