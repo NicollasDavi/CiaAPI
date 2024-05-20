@@ -54,16 +54,23 @@ class CursoRepository{
         }
     }
     
-    async deleteOne(id: string){
+    async deleteOne(id: string) {
+        console.log("Tentando deletar curso com id:", id);
         try {
-            const findedCurso = await prisma.curso.delete({
+            await prisma.cursoUnidade.deleteMany({
                 where: {
-                    id: id
+                    cursoId: id
                 }
             });
-            return {findedCurso};
+
+            const deletedCurso = await prisma.curso.delete({
+                where: { id: id }
+            });
+            console.log("Curso deletado com sucesso:", deletedCurso);
+            return { success: true, deletedCurso };
         } catch (error) {
-            return null;
+            console.error("Erro ao deletar curso:", error);
+            return { success: false, message: "Erro ao deletar curso." };
         }
     }
     

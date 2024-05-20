@@ -7,7 +7,6 @@ class UnidadeRepository {
     try {
       const unidade = await prisma.unidades.create({
         data: {
-          codigo: data.codigo,
           horario: data.horario,
           informacoes: data.informacoes,
           nome: data.nome,

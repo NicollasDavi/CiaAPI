@@ -38,7 +38,8 @@ model Curso {
   turno      String
   informacao String
   imagem     String
-  unidades   CursoUnidade[] // Relacionamento muitos-para-muitos
+  unidades   CursoUnidade[]
+  createdAt  DateTime      @default(now())
 }
 
 model CursoValor {
@@ -48,17 +49,19 @@ model CursoValor {
   nome    String
   unidade String
   turno   String
+  createdAt  DateTime      @default(now())
 }
 
 model Professores {
-  nome    String @id
+  nome    String   @id @default(uuid()) @map(name: "id")
   materia String
   tit     String
   foto    String
+  createdAt  DateTime      @default(now())
 }
 
 model Unidades {
-  codigo      String         @id
+  codigo      String   @id @default(uuid()) @map(name: "id")
   nome        String
   informacoes String
   vcep        String
@@ -66,7 +69,8 @@ model Unidades {
   numeroWpp   String
   horario     String
   imagem     String
-  cursos      CursoUnidade[] // Relacionamento muitos-para-muitos
+  cursos      CursoUnidade[]
+  createdAt  DateTime      @default(now())
 }
 
 model CursoUnidade {
@@ -76,6 +80,8 @@ model CursoUnidade {
   unidade   Unidades @relation(fields: [unidadeId], references: [codigo])
 
   @@id([cursoId, unidadeId])
+  createdAt  DateTime      @default(now())
+
 }
 
 
@@ -86,6 +92,7 @@ model Pagina {
   userId     Int
   usuario    Usuario       @relation(fields: [userId], references: [matricula])
   tipos      TipoDocumento[]
+  createdAt  DateTime      @default(now())
 }
 
 model TipoDocumento {
