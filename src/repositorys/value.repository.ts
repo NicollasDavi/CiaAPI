@@ -25,12 +25,26 @@ class ValueRepository{
 
     async getAll(){
         try {
+            const allValues = await prisma.cursoValor.findMany({
+                where:{
+                    active : true
+                }
+            });
+            return allValues
+        } catch (error: any) {
+            throw new Error("Erro na consulta")
+        }
+    }
+
+    async getAllAdm(){
+        try {
             const allValues = await prisma.cursoValor.findMany();
             return allValues
         } catch (error: any) {
             throw new Error("Erro na consulta")
         }
     }
+    
 
     async delete(id: string){
         try {
@@ -45,16 +59,31 @@ class ValueRepository{
         }
     }
 
-    async disable(id: string){
+    async disable(id: string, action: any){
+        console.log("veio")
         try {
-            const value = await prisma.cursoValor.update({
-                where:{
-                    id
-                },
-                data:{
-                    active : false
-                }
-            })
+            if(action == 0){
+                const value = await prisma.cursoValor.update({
+                    where:{
+                        id
+                    },
+                    data:{
+                        active : false
+                    }
+                })
+                return {value}
+            }else{
+                const value = await prisma.cursoValor.update({
+                    where:{
+                        id
+                    },
+                    data:{
+                        active : true
+                    }
+                })
+                return {value}
+            }
+            
         } catch (error: any) {
             throw new Error("Erro na consulta")
         }

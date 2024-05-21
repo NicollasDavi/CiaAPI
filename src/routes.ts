@@ -25,6 +25,8 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
     fastify.get("/curso/:id", { preHandler: authMiddlewere }, cursoController.handleGetOne);
 
+    fastify.get("/all/cursos" ,{ preHandler: adminAuthMiddlewere }, cursoController.handleGetAllAdm);
+
     fastify.get("/cursos" ,{ preHandler: authMiddlewere }, cursoController.handleGetAll);
 
     fastify.delete("/curso/delete/:id", { preHandler: adminAuthMiddlewere } , cursoController.handleDeleteOne);
@@ -57,19 +59,21 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
     fastify.get("/docs",{preHandler: authMiddlewere},  docController.handleGetAll)
 
+    fastify.get("/all/docs" , {preHandler : authMiddlewere} , docController.handleGetAllAdm)
+
     fastify.get("/doc/:id",{preHandler : adminAuthMiddlewere}, docController.handleGetOne)
 
-    fastify.patch("/doc/:id", {preHandler : adminAuthMiddlewere} , docController.handleDelete)
-
-    fastify.get("/all/docs" , {preHandler : authMiddlewere} , docController.handleGetAllAdm)
+    fastify.patch("/doc/:id/:action", {preHandler : adminAuthMiddlewere} , docController.handleDelete)
 
     //############################### valores ######################################//
 
     fastify.post("/valor", { preHandler : adminAuthMiddlewere} , valueController.handleCreate)
 
+    fastify.get("/all/valores", {preHandler : adminAuthMiddlewere}, valueController.handleGetAllAdm)
+
     fastify.get("/valores", {preHandler : adminAuthMiddlewere}, valueController.handleGetAll)
 
-    fastify.patch("/valor/:id", {preHandler : adminAuthMiddlewere}, valueController.handleDisable)
+    fastify.patch("/valor/:id/:action", {preHandler : adminAuthMiddlewere}, valueController.handleDisable)
 
     fastify.delete("/valor/id", {preHandler : adminAuthMiddlewere} , valueController.handleDelete)
 
@@ -79,6 +83,8 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
     fastify.get("/unidades",{preHandler : adminAuthMiddlewere}, unidadeController.handleGetAll)
 
-    fastify.delete("/unidade/:id" , {preHandler : adminAuthMiddlewere} , unidadeController.handleDelte)
-    
+    fastify.delete("/unidade/:id" , {preHandler : adminAuthMiddlewere} , unidadeController.handleDelete)
+
+    fastify.patch("/unidade/:id/:action", {preHandler : adminAuthMiddlewere}, unidadeController.handleDisable)
+
 }

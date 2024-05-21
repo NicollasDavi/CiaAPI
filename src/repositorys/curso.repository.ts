@@ -47,6 +47,19 @@ class CursoRepository{
 
     async getAll(){
         try {
+            const allCursos = await prisma.curso.findMany({
+                where:{
+                    active : true
+                }
+            });
+            return allCursos
+        } catch (error: any) {
+            throw new Error("Erro na consulta")
+        }
+    }
+
+    async getAllAdm(){
+        try {
             const allCursos = await prisma.curso.findMany();
             return allCursos
         } catch (error: any) {

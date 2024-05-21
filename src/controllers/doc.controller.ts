@@ -29,8 +29,9 @@ class DocController{
 
     async handleDelete(request: any, reply: any){
         const id = request.params.id
+        const action = request.params.action
         const createDocService = new CreateDocService();
-        const result = createDocService.executeDelete(id)
+        const result = createDocService.executeDelete(id, action)
         return reply.send(result)
     }
 }

@@ -23,11 +23,24 @@ class ValueController{
         }
     }
 
-    async handleDisable(request: any, reply: any){
-        const id = request.params.id
+    async handleGetAllAdm(request: any, reply: any){
         try{
             const createUserService = new CreateValueService();
-            const result = await createUserService.executeDisable(id);
+            const result = await createUserService.executeGetAllAdm();
+            return reply.send(result);
+        }catch(error: any){
+            return reply.status(400).send({ error: error.message})
+        }
+    }
+
+    async handleDisable(request: any, reply: any){
+        const id = request.params.id
+        const action = request.params.action
+        console.log(action)
+
+        try{
+            const createUserService = new CreateValueService();
+            const result = await createUserService.executeDisable(id, action);
             return reply.send(result);
         }catch(error: any){
             return reply.status(400).send({ error: error.message})

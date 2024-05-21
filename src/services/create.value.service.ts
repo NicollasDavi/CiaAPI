@@ -19,6 +19,14 @@ class CreateValueService{
             throw new Error("Erro de validação: " + error.errors);
         }
     }
+    async executeGetAllAdm() {
+
+        try {
+            return valueRepository.getAllAdm();
+        } catch (error: any) {
+            throw new Error("Erro de validação: " + error.errors);
+        }
+    }
 
     async executeDelete(id: string) {
 
@@ -29,9 +37,9 @@ class CreateValueService{
         }
     }
 
-    async executeDisable (id: string){
+    async executeDisable (id: string,action: any){
         try {
-            return valueRepository.disable(id)
+            return valueRepository.disable(id, action)
         } catch (error: any) {
             throw new Error("Erro de validação: " + error.errors);
         }

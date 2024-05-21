@@ -46,6 +46,15 @@ class CursoController {
             return reply.status(400).send({ error: error.message })
         }
     }
+    async handleGetAllAdm(request: any, reply: any){
+        try {
+            const createCursoService = new CreateCursoService();
+            const result = await createCursoService.executeGetAllAdm();
+            return reply.send(result)
+        } catch (error: any) {
+            return reply.status(400).send({ error: error.message })
+        }
+    }
 
     async handleDeleteOne(request: any, reply: any){
         const id = request.params.id;

@@ -34,10 +34,10 @@ class CreateDocService {
         }
     }
 
-    async executeDelete(id: string){
+    async executeDelete(id: string, action: any){
         try {
             console.log(id)
-            return docRepository.delete(id)
+            return docRepository.delete(id, action)
         } catch (error: any) {
             console.log(id)
 

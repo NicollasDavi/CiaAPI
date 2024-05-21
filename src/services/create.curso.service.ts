@@ -27,6 +27,15 @@ class CreateCursoService {
         }
     }
 
+    async executeGetAllAdm(){
+        try {
+            return cursoRepository.getAllAdm();
+        } catch (error: any) {
+            throw new Error("Não foi encontrado nenhum curso")
+        }
+    }
+
+
     async executeDeleteOne(id : string){
         try {
             return cursoRepository.deleteOne(id);

@@ -16,14 +16,20 @@ class UnidadeController{
     async handleGetOne(request: any, reply: any){
         
     }
-    async handleDelte(request: any, reply: any){
+
+    async handleDelete(request: any, reply: any){
         const id = request.params.id
         const createUnidadeService = new CreateUnidadeService();
         const result = await createUnidadeService.executeDelete(id);
         return reply.send(result)
     }
-    async handleUpdate(request: any, reply: any){
-        
+
+    async handleDisable(request: any, reply: any){
+        const id = request.params.id
+        const action = request.params.action
+        const createUnidadeService = new CreateUnidadeService();
+        const result = await createUnidadeService.executeDisable(id, action);
+        return reply.send(result)
     }
 }
 

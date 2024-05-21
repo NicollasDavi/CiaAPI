@@ -64,17 +64,31 @@ class DocRepository{
         }
       }
 
-      async delete(id : string){
+      async delete(id : string, action : any){
         try{
-          const doc = await prisma.pagina.update({
-            where: {
-              id : id
-            },
-            data:{
-              active : false
-            }
-          })
-          return {doc}
+          
+          if (action = 0){
+            const doc = await prisma.pagina.update({
+              where: {
+                id : id
+              },
+              data:{
+                active : false
+              }
+            })
+            return {doc}
+          }else{
+              const doc = await prisma.pagina.update({
+                where: {
+                  id : id
+                },
+                data:{
+                  active : true
+                }
+              })
+              return {doc}
+
+          }
         }catch (error : any){
           throw new Error("Deu ruim")
         }

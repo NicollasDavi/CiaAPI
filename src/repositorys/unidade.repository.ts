@@ -25,7 +25,11 @@ class UnidadeRepository {
 
   async getAll(){
     try {
-      const unidades = await prisma.unidades.findMany();
+      const unidades = await prisma.unidades.findMany({
+        where:{
+          active : true
+        }
+      });
       console.log(unidades)
       return unidades
     } catch (error: any) {
@@ -43,6 +47,35 @@ class UnidadeRepository {
       return unidade
     }catch (error: any){
       throw new Error("Erro ao deletar unidade:" + error.errors)
+    }
+  }
+
+  async disable(id: any, action : any){
+    try {
+      if(action == 0){
+        const unidade = await prisma.unidades.update({
+          where: {
+            codigo : id
+          },
+          data: {
+            active : false
+          }
+        })
+        return {unidade}
+      }else{
+        const unidade = await prisma.unidades.update({
+          where: {
+            codigo : id
+          },
+          data: {
+            active : true
+          }
+        })
+        return {unidade}
+      }
+      
+    } catch (error: any) {
+      throw new Error("Erro ao desabilitar unidade" + error.erros)
     }
   }
 }
