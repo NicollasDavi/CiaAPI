@@ -22,6 +22,28 @@ class ValueController{
             return reply.status(400).send({ error: error.message})
         }
     }
+
+    async handleDisable(request: any, reply: any){
+        const id = request.params.id
+        try{
+            const createUserService = new CreateValueService();
+            const result = await createUserService.executeDisable(id);
+            return reply.send(result);
+        }catch(error: any){
+            return reply.status(400).send({ error: error.message})
+        }
+    }
+
+    async handleDelete(request: any, reply: any){
+        const id = request.params.id
+        try{
+            const createUserService = new CreateValueService();
+            const result = await createUserService.executeDelete(id);
+            return reply.send(result);
+        }catch(error: any){
+            return reply.status(400).send({ error: error.message})
+        }
+    }
 }
 
 export {ValueController}

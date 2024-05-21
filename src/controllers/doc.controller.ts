@@ -14,6 +14,12 @@ class DocController{
         return reply.send(result);
     }
 
+    async handleGetAllAdm(request: any, reply: any){
+        const createDocService = new CreateDocService();
+        const result = await createDocService.executeGetAllAdm();
+        return reply.send(result);
+    }
+
     async handleGetOne(request: any, reply: any){
         const id = request.params.id;
         const createDocService = new CreateDocService();

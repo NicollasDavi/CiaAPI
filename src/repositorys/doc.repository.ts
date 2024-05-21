@@ -4,12 +4,11 @@ const prisma = new PrismaClient();
 
 class DocRepository{
     async save(data : any){
-      const userId = 105404
         try {
             const pagina = await prisma.pagina.create({
               data: {
                 nome: data.nome,
-                usuario: { connect: { matricula:  userId  } },
+                usuario: { connect: { matricula:  data.userId  } },
                 tipos: {
                   create: data.types.map((tipo : any)=> ({
                     type: tipo.type,
@@ -32,13 +31,25 @@ class DocRepository{
 
         async getAll(){
           try {
-              const allDocs = await prisma.pagina.findMany();
-              console.log(allDocs)
+              const allDocs = await prisma.pagina.findMany({
+                where: {
+                  active : true
+                }
+              });
               return allDocs
           } catch (error: any) {
               throw new Error("Erro na consulta")
           }
       }
+
+      async getAllAdm(){
+        try {
+            const allDocs = await prisma.pagina.findMany();
+            return allDocs
+        } catch (error: any) {
+            throw new Error("Erro na consulta")
+        }
+    }
 
       async getOne(id: string){
         try{
@@ -60,9 +71,12 @@ class DocRepository{
               id : id
             },
             data:{
-              active : true
+              active : false
             }
           })
+          return {doc}
+        }catch (error : any){
+          throw new Error("Deu ruim")
         }
       }
       

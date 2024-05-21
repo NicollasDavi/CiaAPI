@@ -18,6 +18,14 @@ class CreateDocService {
         }
     }
 
+    async executeGetAllAdm(){
+        try{
+            return docRepository.getAllAdm();
+        }catch(error: any){
+            throw new Error("Erro de validação" + error.errors)
+        }
+    }
+
     async executeGetOne(id : string){
         try{
             return docRepository.getOne(id);
@@ -28,8 +36,11 @@ class CreateDocService {
 
     async executeDelete(id: string){
         try {
+            console.log(id)
             return docRepository.delete(id)
         } catch (error: any) {
+            console.log(id)
+
             throw new Error("Erro ao deletar documento" + error.erros)
         }
     }

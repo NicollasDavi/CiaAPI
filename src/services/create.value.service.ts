@@ -20,6 +20,23 @@ class CreateValueService{
         }
     }
 
+    async executeDelete(id: string) {
+
+        try {
+            return valueRepository.delete(id);
+        } catch (error: any) {
+            throw new Error("Erro de validação: " + error.errors);
+        }
+    }
+
+    async executeDisable (id: string){
+        try {
+            return valueRepository.disable(id)
+        } catch (error: any) {
+            throw new Error("Erro de validação: " + error.errors);
+        }
+    }
+
     
 }
 

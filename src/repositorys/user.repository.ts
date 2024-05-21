@@ -108,26 +108,26 @@ class UserRepository{
                 if (verifyToken) {
 
                     const createdToken = await create(matricula);
-                    console.log({ URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm})
+                    console.log({ URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm, MAT: matricula})
 
                     if (isAdm) {
             
-                        return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm};
+                        return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm, MAT: matricula};
                     } else {
-                        return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm };
+                        return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm, MAT: matricula };
                         
                     }
                 }else{
                             remove(matricula)
 
                     const createdToken = await create(matricula);
-                    console.log({ URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm})
+                    console.log({ URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm, MAT: matricula})
 
                     if (isAdm) {
             
-                        return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm};
+                        return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm, MAT: matricula};
                     } else {
-                        return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm};
+                        return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm, MAT: matricula};
                     }
                 }
             } else {

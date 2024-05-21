@@ -7,7 +7,7 @@ class ValueRepository{
         try {
             console.log("first")
             const { nome, valor_E, valor_M, unidade, turno} = curso;
-            const newCurso = await prisma.cursoValor.create({
+            const newValue = await prisma.cursoValor.create({
                 data: {
                     nome,
                     unidade,
@@ -17,7 +17,7 @@ class ValueRepository{
                 },
             });
     
-            return newCurso;
+            return newValue;
         } catch (error) {
             throw error;
         }
@@ -25,9 +25,36 @@ class ValueRepository{
 
     async getAll(){
         try {
-            const allCursos = await prisma.cursoValor.findMany();
-            console.log(allCursos)
-            return allCursos
+            const allValues = await prisma.cursoValor.findMany();
+            return allValues
+        } catch (error: any) {
+            throw new Error("Erro na consulta")
+        }
+    }
+
+    async delete(id: string){
+        try {
+            const value = await prisma.cursoValor.delete({
+                where: {
+                    id : id
+                }
+            });
+            return value
+        } catch (error: any) {
+            throw new Error("Erro na consulta")
+        }
+    }
+
+    async disable(id: string){
+        try {
+            const value = await prisma.cursoValor.update({
+                where:{
+                    id
+                },
+                data:{
+                    active : false
+                }
+            })
         } catch (error: any) {
             throw new Error("Erro na consulta")
         }
