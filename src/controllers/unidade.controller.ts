@@ -17,7 +17,10 @@ class UnidadeController{
         
     }
     async handleDelte(request: any, reply: any){
-        
+        const id = request.params.id
+        const createUnidadeService = new CreateUnidadeService();
+        const result = await createUnidadeService.executeDelete(id);
+        return reply.send(result)
     }
     async handleUpdate(request: any, reply: any){
         

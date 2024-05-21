@@ -17,6 +17,13 @@ class CreateUnidadeService {
             throw new Error("Erro de Validação" + error.errors)
         }
     }
+    async executeDelete(id : any){
+        try{
+            return unidadeRepository.delete(id)
+        } catch (error: any){
+            throw new Error("Erro de Validação:" + error.errors)
+        }
+    }
 }
 
 export { CreateUnidadeService };

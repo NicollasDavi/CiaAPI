@@ -32,6 +32,19 @@ class UnidadeRepository {
       throw new Error("Deu rium patrão")
     }
   }
+
+  async delete(id : any){
+    try {
+      const unidade = await prisma.unidades.delete({
+        where: {
+          codigo : id
+        }
+      })
+      return unidade
+    }catch (error: any){
+      throw new Error("Erro ao deletar unidade:" + error.errors)
+    }
+  }
 }
 
 export default new UnidadeRepository();

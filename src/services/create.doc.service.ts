@@ -25,6 +25,14 @@ class CreateDocService {
             throw new Error("Erro de validação" + error.errors)
         }
     }
+
+    async executeDelete(id: string){
+        try {
+            return docRepository.delete(id)
+        } catch (error: any) {
+            throw new Error("Erro ao deletar documento" + error.erros)
+        }
+    }
 }
 
 export { CreateDocService };

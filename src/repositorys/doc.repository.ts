@@ -52,6 +52,19 @@ class DocRepository{
           throw new Error("Erro na consulta")
         }
       }
+
+      async delete(id : string){
+        try{
+          const doc = await prisma.pagina.update({
+            where: {
+              id : id
+            },
+            data:{
+              active : true
+            }
+          })
+        }
+      }
       
         
     }

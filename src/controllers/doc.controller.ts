@@ -20,6 +20,13 @@ class DocController{
         const result = await createDocService.executeGetOne(id);
         return reply.send(result);
     }
+
+    async handleDelete(request: any, reply: any){
+        const id = request.params.id
+        const createDocService = new CreateDocService();
+        const result = createDocService.executeDelete(id)
+        return reply.send(result)
+    }
 }
 
 export { DocController }

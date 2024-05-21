@@ -59,6 +59,8 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
     fastify.get("/doc/:id",  docController.handleGetOne)
 
+    fastify.patch("/doc/:id", {preHandler : adminAuthMiddlewere} , docController.handleDelete)
+
     //############################### valores ######################################//
 
     fastify.post("/valor", { preHandler : adminAuthMiddlewere} , valueController.handleCreate)
@@ -71,6 +73,6 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
     fastify.get("/unidades", unidadeController.handleGetAll)
 
-
+    fastify.delete("/unidade/:id" , {preHandler : adminAuthMiddlewere} , unidadeController.handleDelte)
     
 }
