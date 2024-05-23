@@ -44,6 +44,13 @@ class CreateCursoService {
         }
     }
 
+    async executeDisable(id : string, action: any){
+        try {
+            return cursoRepository.disable(id, action);
+        } catch (error: any) {
+            throw new Error("Erro de validação: " + error.errors);
+        }
+    }
     async executeUpdate(id: string, data: any){
 
         try {

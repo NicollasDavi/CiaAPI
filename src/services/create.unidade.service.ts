@@ -17,6 +17,16 @@ class CreateUnidadeService {
             throw new Error("Erro de Validação" + error.errors)
         }
     }
+
+    async executeGetAllAdm(){
+        try {
+            return unidadeRepository.getAllAdm();
+        } catch (error: any) {
+            throw new Error("Erro de Validação" + error.errors)
+        }
+    }
+
+
     async executeDelete(id : any){
         try{
             return unidadeRepository.delete(id)

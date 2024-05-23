@@ -67,6 +67,18 @@ class CursoController {
         }
     }
 
+    async handleDisable(request: any, reply: any){
+        const id = request.params.id;
+        const action = request.params.action
+        try{
+            const createCursoService = new CreateCursoService();
+            const result = await createCursoService.executeDisable(id, action);
+            return reply.send(result);
+        } catch (error: any) {
+            return reply.status(400).send({ error: error.message });
+        }
+    }
+
     async handleUpdate(request: any, reply: any){
         
         const id = request.params.id;

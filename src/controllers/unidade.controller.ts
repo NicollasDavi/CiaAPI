@@ -13,6 +13,13 @@ class UnidadeController{
         return reply.send(result);
 
     }
+
+    async handleGetAllAdm(request: any, reply: any){
+        const createUnidadeService = new CreateUnidadeService();
+        const result = await createUnidadeService.executeGetAllAdm();
+        return reply.send(result);
+
+    }
     async handleGetOne(request: any, reply: any){
         
     }
@@ -27,6 +34,7 @@ class UnidadeController{
     async handleDisable(request: any, reply: any){
         const id = request.params.id
         const action = request.params.action
+        console.log(action)
         const createUnidadeService = new CreateUnidadeService();
         const result = await createUnidadeService.executeDisable(id, action);
         return reply.send(result)

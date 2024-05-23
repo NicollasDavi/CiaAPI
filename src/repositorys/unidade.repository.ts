@@ -30,7 +30,15 @@ class UnidadeRepository {
           active : true
         }
       });
-      console.log(unidades)
+      return unidades
+    } catch (error: any) {
+      throw new Error("Deu rium patrão")
+    }
+  }
+
+  async getAllAdm(){
+    try {
+      const unidades = await prisma.unidades.findMany();
       return unidades
     } catch (error: any) {
       throw new Error("Deu rium patrão")
@@ -38,13 +46,25 @@ class UnidadeRepository {
   }
 
   async delete(id : any){
+    console.log(id)
     try {
-      const unidade = await prisma.unidades.delete({
-        where: {
-          codigo : id
+      const curso = await prisma.cursoUnidade.findFirst({
+        where:{
+          unidadeId : id
         }
       })
-      return unidade
+      console.log(curso)
+      if(curso){
+        return {COD: 200, MESSAGE : "A unidade tem cursos vinculados"}
+      }else{
+        const unidade = await prisma.unidades.delete({
+          where: {
+            codigo : id
+          }
+        })
+        return 
+      }
+     
     }catch (error: any){
       throw new Error("Erro ao deletar unidade:" + error.errors)
     }
@@ -53,6 +73,7 @@ class UnidadeRepository {
   async disable(id: any, action : any){
     try {
       if(action == 0){
+        console.log(id)
         const unidade = await prisma.unidades.update({
           where: {
             codigo : id
@@ -78,6 +99,8 @@ class UnidadeRepository {
       throw new Error("Erro ao desabilitar unidade" + error.erros)
     }
   }
+  
+  
 }
 
 export default new UnidadeRepository();

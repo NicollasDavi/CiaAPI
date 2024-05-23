@@ -86,6 +86,36 @@ class CursoRepository{
             return { success: false, message: "Erro ao deletar curso." };
         }
     }
+
+    async disable(id: string, action: any){
+        console.log("veio")
+        try {
+            if(action == 0){
+                const value = await prisma.curso.update({
+                    where:{
+                        id
+                    },
+                    data:{
+                        active : false
+                    }
+                })
+                return {value}
+            }else{
+                const value = await prisma.curso.update({
+                    where:{
+                        id
+                    },
+                    data:{
+                        active : true
+                    }
+                })
+                return {value}
+            }
+            
+        } catch (error: any) {
+            throw new Error("Erro na consulta")
+        }
+    }
     
     async update(id: string, data: any) {
         try {
