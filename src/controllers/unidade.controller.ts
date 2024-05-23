@@ -21,7 +21,15 @@ class UnidadeController{
 
     }
     async handleGetOne(request: any, reply: any){
-        
+        const id = request.params.id;
+       try{
+        const createUnidadeService = new CreateUnidadeService();
+        const result = await createUnidadeService.executeGetOne(id)
+        console.log(result)
+        return reply.send(result);
+       }catch (error: any) {
+        return reply.status(400).send({ error: error.message });
+    }
     }
 
     async handleDelete(request: any, reply: any){

@@ -45,6 +45,18 @@ class UnidadeRepository {
     }
   }
 
+  async getOne(id: string) {
+    try {
+        return( await prisma.unidades.findUnique({
+          where : {
+            codigo: id
+          }
+        }))
+    } catch (error) {
+        return null;
+    }
+}
+
   async delete(id : any){
     console.log(id)
     try {

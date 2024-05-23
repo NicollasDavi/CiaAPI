@@ -10,9 +10,9 @@ class CreateDocService {
         }
     }
 
-    async executeGetAll(){
+    async executeGetAll(id: any){
         try{
-            return docRepository.getAll();
+            return docRepository.getAll(id);
         }catch(error: any){
             throw new Error("Erro de validação" + error.errors)
         }

@@ -26,6 +26,15 @@ class CreateUnidadeService {
         }
     }
 
+    
+    async executeGetOne(id: any){
+        try {
+            return unidadeRepository.getOne(id);
+        } catch (error: any) {
+            throw new Error("Erro de Validação" + error.errors)
+        }
+    }
+
 
     async executeDelete(id : any){
         try{

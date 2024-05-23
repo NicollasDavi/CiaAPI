@@ -8,7 +8,8 @@ class DocRepository{
             const pagina = await prisma.pagina.create({
               data: {
                 nome: data.nome,
-                usuario: { connect: { matricula:  data.userId  } },
+                publica: data.publica,
+                usuario: { connect: { matricula:  parseInt(data.userId)  } },
                 tipos: {
                   create: data.types.map((tipo : any)=> ({
                     type: tipo.type,
@@ -29,14 +30,23 @@ class DocRepository{
         }
 
 
-        async getAll(){
+        async getAll(id: string){
           try {
               const allDocs = await prisma.pagina.findMany({
                 where: {
-                  active : true
+                  active : true,
+                  publica : true
                 }
               });
-              return allDocs
+              const uId = parseInt(id)
+              const allDocs2 = await prisma.pagina.findMany({
+                where: {
+                  active : true,
+                  userId: uId
+                }
+              });
+              const combinedDocs = [...allDocs, ...allDocs2];
+              return combinedDocs
           } catch (error: any) {
               throw new Error("Erro na consulta")
           }

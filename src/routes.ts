@@ -35,6 +35,8 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
     fastify.put("/curso/:id", { preHandler: authMiddlewere } , cursoController.handleUpdate);
 
+    fastify.get("/curso/unidade/:unidadeId", {preHandler : authMiddlewere} , cursoController.handleGetAllByUnidade)
+
     //############################### User ######################################//
 
     fastify.post("/user", userController.handleCreate);
@@ -59,7 +61,7 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
     fastify.post("/doc", {preHandler: authMiddlewere}, docController.handleCreate)
 
-    fastify.get("/docs",{preHandler: authMiddlewere},  docController.handleGetAll)
+    fastify.get("/docs/:id",{preHandler: authMiddlewere},  docController.handleGetAll)
 
     fastify.get("/all/docs" , {preHandler : authMiddlewere} , docController.handleGetAllAdm)
 
@@ -83,12 +85,15 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
     fastify.post("/unidade",{preHandler : adminAuthMiddlewere}, unidadeController.handleCreate)
 
-    fastify.get("/unidades",{preHandler : adminAuthMiddlewere}, unidadeController.handleGetAll)
+    fastify.get("/unidades", unidadeController.handleGetAll)
+
+    fastify.get("/unidade/:id" ,  unidadeController.handleGetOne)
 
     fastify.get("/all/unidades",{preHandler : adminAuthMiddlewere}, unidadeController.handleGetAllAdm)
 
     fastify.delete("/unidade/:id" , {preHandler : adminAuthMiddlewere} , unidadeController.handleDelete)
 
     fastify.patch("/unidade/:id/:action", {preHandler : adminAuthMiddlewere}, unidadeController.handleDisable)
+
 
 }

@@ -3,14 +3,17 @@ import {CreateDocService} from "../services/create.doc.service"
 class DocController{
     async handleCreate(request: any, reply: any){
         const { body } = request
+        
         const createDocService = new CreateDocService();
         const result = await createDocService.executeCreate(body);
         return reply.send(result);
     }
 
     async handleGetAll(request: any, reply: any){
+        console.log("entrou")
+        const id = request.params.id
         const createDocService = new CreateDocService();
-        const result = await createDocService.executeGetAll();
+        const result = await createDocService.executeGetAll(id);
         return reply.send(result);
     }
 

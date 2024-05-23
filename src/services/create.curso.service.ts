@@ -27,6 +27,14 @@ class CreateCursoService {
         }
     }
 
+    async executeGetAllByUnidade(id: any){
+        try {
+            return cursoRepository.getAllByUnidade(id);
+        } catch (error: any) {
+            throw new Error("Não foi encontrado nenhum curso")
+        }
+    }
+
     async executeGetAllAdm(){
         try {
             return cursoRepository.getAllAdm();
