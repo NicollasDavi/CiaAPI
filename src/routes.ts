@@ -53,7 +53,9 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
     //############################### isolated routes ######################################//
 
-    fastify.post("/calc", { preHandler: authMiddlewere } , calcController.handleCalc);
+    fastify.post("/calc" , calcController.handleCalc);
+
+    fastify.post("/calc/inverso", calcController.handleCalcInv);
 
     fastify.get("/token/{token}", { preHandler: authMiddlewere } , userController.verifyLoged)
 

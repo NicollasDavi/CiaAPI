@@ -17,7 +17,11 @@ class CreateCalcService{
     
 
     async executeCalcInverse(data : Curso){
-
+        try {
+            return calcRepository.calcularInverso(data)
+        } catch (error) {
+            console.log("Erro ao executar o cálcular:", error instanceof z.ZodError ? error.errors : error)
+        }
     }
 }
 
