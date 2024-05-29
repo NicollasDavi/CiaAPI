@@ -49,6 +49,7 @@ class ValueController{
 
     async handleDelete(request: any, reply: any){
         const id = request.params.id
+        console.log(id)
         try{
             const createUserService = new CreateValueService();
             const result = await createUserService.executeDelete(id);

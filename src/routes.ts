@@ -81,7 +81,7 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
     fastify.patch("/valor/:id/:action", {preHandler : adminAuthMiddlewere}, valueController.handleDisable)
 
-    fastify.delete("/valor/id", {preHandler : adminAuthMiddlewere} , valueController.handleDelete)
+    fastify.delete("/valor/:id", {preHandler : adminAuthMiddlewere} , valueController.handleDelete)
 
     //############################### unidades ######################################//
 
@@ -96,6 +96,5 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
     fastify.delete("/unidade/:id" , {preHandler : adminAuthMiddlewere} , unidadeController.handleDelete)
 
     fastify.patch("/unidade/:id/:action", {preHandler : adminAuthMiddlewere}, unidadeController.handleDisable)
-
 
 }

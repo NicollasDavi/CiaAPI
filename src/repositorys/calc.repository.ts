@@ -81,6 +81,7 @@ class CalcRepository {
                 }
             });
             console.log(resultado)
+
             return resultado;
         } catch (error) {
             console.error('Erro ao calcular mensalidade do curso:', error);

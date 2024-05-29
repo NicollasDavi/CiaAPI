@@ -53,7 +53,6 @@ model CursoValor {
   turno   String
   createdAt  DateTime      @default(now())
   active Boolean @default(true)
-
 }
 
 model Professores {
@@ -109,4 +108,32 @@ model TipoDocumento {
   img         String
   paginaId    String
   pagina      Pagina         @relation(fields: [paginaId], references: [id])
+}
+
+model CarouselItem {
+  id         String      @id @default(uuid()) @map(name: "id")
+  image      String
+  alt        String
+  caption    String
+  createdAt  DateTime    @default(now()) @map(name: "created_at")
+
+  @@map(name: "carousel_items")
+}
+
+model PdfFile {
+  id         String      @id @default(uuid()) @map(name: "id")
+  url        String
+  createdAt  DateTime    @default(now()) @map(name: "created_at")
+
+  @@map(name: "pdf_files")
+}
+
+model Aviso {
+  id         String      @id @default(uuid()) @map(name: "id")
+  titulo     String
+  conteudo   String
+  alertas    String[]
+  createdAt  DateTime    @default(now()) @map(name: "created_at")
+
+  @@map(name: "avisos")
 }

@@ -38,6 +38,7 @@ class CreateValueService{
     }
 
     async executeDisable (id: string,action: any){
+        console.log(action)
         try {
             return valueRepository.disable(id, action)
         } catch (error: any) {
