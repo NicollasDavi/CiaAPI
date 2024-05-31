@@ -3,9 +3,10 @@ import { CursoController } from "./controllers/curso.controller";
 import { UserController } from "./controllers/user.controller";
 import { CalcController } from "./controllers/calc.controller";
 import { DocController } from "./controllers/doc.controller";
-import { authMiddlewere } from "./middleweres/auth.middlewere";
 import { ValueController } from "./controllers/value.controller";
 import {UnidadeController} from "./controllers/unidade.controller"
+import {PdfController} from "./controllers/pdf.controller"
+import { authMiddlewere } from "./middleweres/auth.middlewere";
 import { adminAuthMiddlewere } from "./middleweres/adminAuth.moddlewere";
 
 
@@ -15,6 +16,7 @@ const calcController = new CalcController();
 const docController = new DocController();
 const valueController = new ValueController();
 const unidadeController = new UnidadeController();
+const pdfController = new PdfController();
 
 
 export async function routes(fastify: FastifyInstance, options: FastifyPluginOptions) {
@@ -97,4 +99,15 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
     fastify.patch("/unidade/:id/:action", {preHandler : adminAuthMiddlewere}, unidadeController.handleDisable)
 
+    //############################### pdf ######################################//
+
+    fastify.post("/pdf", {preHandler: adminAuthMiddlewere}, pdfController.handleCreate)
+
+    fastify.get("/pdf", {preHandler: adminAuthMiddlewere}, pdfController.handleGet)
+    
+    fastify.put("/pdf", {preHandler: adminAuthMiddlewere}, pdfController.handleUpdate)
+
+    fastify.patch("/pdf", {preHandler: adminAuthMiddlewere}, pdfController.handleDisable)
+
+    fastify.delete("/pdf", {preHandler : adminAuthMiddlewere}, pdfController.handleDelete)
 }

@@ -16,7 +16,7 @@ class ValueRepository{
                     valor_M,
                 },
             });
-    
+            console.log(newValue)
             return newValue;
         } catch (error) {
             throw error;
