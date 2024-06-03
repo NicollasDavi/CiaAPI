@@ -10,7 +10,11 @@ class CreatePdfService{
     }
 
     async executeGet(){
-
+        try {
+            return pdfRepository.get();
+        } catch (error: any) {
+            throw new Error("Erro de validação: " + error.errors);
+        }
     }
 
     async executeUpdate(data: any){
