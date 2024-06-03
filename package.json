@@ -21,7 +21,7 @@
     "dotenv": "^16.4.5",
     "fastify": "^4.26.2",
     "fastify-cors": "^6.1.0",
-    "fastify-multipart": "^4.0.4",
+    "fastify-multipart": "^4.0.7",
     "fastify-oas": "^3.0.8",
     "fastify-reply-from": "^6.7.0",
     "fastify-swagger": "^4.8.1",

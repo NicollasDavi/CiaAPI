@@ -10,12 +10,13 @@ class pdfRepository{
         return pdf
     }
 
-    async update(data: PdfFile) {
+    async update(data: string) {
         const existPdf = await prisma.pdfFile.findFirst();
         if (!existPdf || existPdf.id !== "1") {
             const pdf = await prisma.pdfFile.create({
                 data: {
-                    ...data
+                    id: "1",
+                    url: data
                 }
             });
             return pdf;

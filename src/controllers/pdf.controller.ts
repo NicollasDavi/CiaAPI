@@ -16,7 +16,6 @@ class PdfController{
 
     async handleUpdate(request:any, reply: any){
         const { body } = request
-        console.log(body)
         const createPdfService = new CreatePdfService()
         const result = createPdfService.executeUpdate(body)
         return reply.send(result)

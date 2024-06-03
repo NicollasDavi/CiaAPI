@@ -12,9 +12,15 @@ class CarouselRepository{
     }
 
     async getAll(){
-        const AllCarouselImages = await prisma.carouselItem.findMany()
-        return AllCarouselImages
+        try {
+            const allImgs = await prisma.carouselItem.findMany();
+            return allImgs
+        } catch (error) {
+            console.error("Erro ao obter todos os itens do carrossel:", error);
+            throw error;
+        }
     }
+    
 }
 
 export default new CarouselRepository()
