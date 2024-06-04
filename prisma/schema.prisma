@@ -127,9 +127,9 @@ model PdfFile {
 
 model Aviso {
   id         String      @id @default(uuid()) @map(name: "id")
-  titulo     String
-  conteudo   String
-  alertas    String[]
+  title     String
+  text   String
+  type String
   createdAt  DateTime    @default(now()) @map(name: "created_at")
 
   @@map(name: "avisos")

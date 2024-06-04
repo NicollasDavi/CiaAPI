@@ -5,9 +5,6 @@ import { Curso } from "@prisma/client";
 
 class CreateCalcService{
     async executeCalc(data:any) {
-        
-
-    
         try {
             return calcRepository.calcularMensalidadeDoCurso(data)
         } catch (error) {

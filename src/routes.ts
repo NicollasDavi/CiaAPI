@@ -7,6 +7,9 @@ import { ValueController } from "./controllers/value.controller";
 import {UnidadeController} from "./controllers/unidade.controller"
 import {PdfController} from "./controllers/pdf.controller"
 import { CarouselController } from "./controllers/carousel.controller"
+import { AlertController } from "./controllers/alert.controller"
+
+
 import { authMiddlewere } from "./middleweres/auth.middlewere";
 import { adminAuthMiddlewere } from "./middleweres/adminAuth.moddlewere";
 
@@ -19,6 +22,7 @@ const valueController = new ValueController();
 const unidadeController = new UnidadeController();
 const pdfController = new PdfController();
 const carouselController = new CarouselController();
+const alertController = new AlertController();
 
 
 export async function routes(fastify: FastifyInstance, options: FastifyPluginOptions) {
@@ -103,7 +107,7 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
     //############################### pdf ######################################//
 
-    fastify.get("/pdf", {preHandler: adminAuthMiddlewere}, pdfController.handleGet)
+    fastify.get("/pdf", {preHandler: authMiddlewere}, pdfController.handleGet)
     
     fastify.put("/pdf", {preHandler: adminAuthMiddlewere}, pdfController.handleUpdate)
 
@@ -111,10 +115,17 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
     fastify.delete("/pdf", {preHandler : adminAuthMiddlewere}, pdfController.handleDelete)
     
-    //############################### pdf ######################################//
+    //############################### carousel ######################################//
 
-    fastify.get("/carousel", {preHandler: adminAuthMiddlewere}, carouselController.handleGet)
+    fastify.get("/carousel", {preHandler: authMiddlewere}, carouselController.handleGet)
 
     fastify.post("/carousel", {preHandler: adminAuthMiddlewere}, carouselController.handleCreate)
 
+    //############################### Alertas ######################################//
+
+    fastify.post("/alert", {preHandler : adminAuthMiddlewere}, alertController.handleCreate)
+
+    fastify.get("/alerts", {preHandler : authMiddlewere}, alertController.handleGetAll)
+
+    fastify.delete("/alert/:id",{preHandler: adminAuthMiddlewere} , alertController.handleDelete)
 }
