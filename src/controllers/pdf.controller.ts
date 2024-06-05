@@ -14,6 +14,12 @@ class PdfController{
         return reply.send(result)
     }
 
+    async handleGetAdm(request: any, reply: any){
+        const createPdfService = new CreatePdfService()
+        const result = await createPdfService.executeGetAdm()
+        return reply.send(result)
+    }
+
     async handleUpdate(request:any, reply: any){
         const { body } = request
         const createPdfService = new CreatePdfService()

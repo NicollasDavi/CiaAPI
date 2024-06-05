@@ -111,6 +111,9 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
     //############################### pdf ######################################//
 
     fastify.get("/pdf", {preHandler: authMiddlewere}, pdfController.handleGet)
+
+    fastify.get("/pdf/adm", {preHandler: authMiddlewere}, pdfController.handleGetAdm)
+
     
     fastify.put("/pdf", {preHandler: adminAuthMiddlewere}, pdfController.handleUpdate)
 

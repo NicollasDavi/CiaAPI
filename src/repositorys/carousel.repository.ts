@@ -20,7 +20,6 @@ class CarouselRepository{
             });
             return allImgs
         } catch (error) {
-            console.error("Erro ao obter todos os itens do carrossel:", error);
             throw error;
         }
     }
@@ -30,7 +29,6 @@ class CarouselRepository{
             const allImgs = await prisma.carouselItem.findMany();
             return allImgs
         } catch (error) {
-            console.error("Erro ao obter todos os itens do carrossel:", error);
             throw error;
         }
     }
@@ -41,7 +39,6 @@ class CarouselRepository{
                 id
             }
         })
-        console.log(img)
         return img
     }
 

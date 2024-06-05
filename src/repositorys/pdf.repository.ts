@@ -37,6 +37,11 @@ class pdfRepository{
                 active : true
             }
         });
+        return existPdf?.url
+    }
+
+    async getAll(){
+        const existPdf = await prisma.pdfFile.findFirst();
         return existPdf
     }
 
