@@ -15,6 +15,28 @@ class CarouselController{
     return reply.send(result)
  }
 
+ async handleGetAdm(request: any, reply: any){
+   const createCarouselService = new CreateCarouselService();
+   const result = await createCarouselService.executeGetAdm()
+   console.log(result)
+   return reply.send(result)
+ }
+
+ async handleDelete(request: any, reply: any){
+   const id = request.params.id
+   const createCarouselService = new CreateCarouselService();
+   const result = await createCarouselService.executeDelete(id)
+   return reply.send(result)
+ }
+
+ async handleDisable(request: any, reply: any){
+   const { action } = request.params.action
+   const createCarouselService = new CreateCarouselService();
+   const result = await createCarouselService.executeDisable(action)
+   return reply.send(result)
+
+}
+
 }
 
 export { CarouselController }

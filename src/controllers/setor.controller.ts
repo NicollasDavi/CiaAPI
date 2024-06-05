@@ -8,7 +8,7 @@ class SetorController{
         return reply.send(result)
     }
 
-    async handleGet(request: any, reply: any){
+    async handleGetOne(request: any, reply: any){
         const id = request.params.id
         const createSetorService = new CreateSetorService();
         const result = await createSetorService.executeGetOne(id);
@@ -17,13 +17,14 @@ class SetorController{
 
     async handleGetAll(request: any, reply: any){
         const createSetorService = new CreateSetorService();
-        const result = await createSetorService.executeGet()
+        const result = await createSetorService.executeGetAll()
         return reply.send(result)
     }
 
     async handleDelete(request: any, reply: any){
+        const id = request.params.id
         const createSetorService = new CreateSetorService();
-        const result = await createSetorService.executeDelete();
+        const result = await createSetorService.executeDelete(id);
         return reply.send(result)
     }
 }

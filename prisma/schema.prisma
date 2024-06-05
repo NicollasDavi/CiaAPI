@@ -113,6 +113,7 @@ model TipoDocumento {
 model CarouselItem {
   id         String      @id @default(uuid()) @map(name: "id")
   image      String
+  active     Boolean @default(true)
   createdAt  DateTime    @default(now()) @map(name: "created_at")
   @@map(name: "carousel_items")
 }

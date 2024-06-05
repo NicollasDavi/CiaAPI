@@ -42,7 +42,6 @@ class UnidadeController{
     async handleDisable(request: any, reply: any){
         const id = request.params.id
         const action = request.params.action
-        console.log(action)
         const createUnidadeService = new CreateUnidadeService();
         const result = await createUnidadeService.executeDisable(id, action);
         return reply.send(result)

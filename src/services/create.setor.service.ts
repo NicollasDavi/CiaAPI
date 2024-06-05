@@ -5,7 +5,7 @@ class CreateSetorService{
         return await setorRepository.save(data);
     }
 
-    async executeGet(id: string){
+    async executeGetOne(id: string){
         return await setorRepository.get(id)
     }
 

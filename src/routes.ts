@@ -24,7 +24,7 @@ const unidadeController = new UnidadeController();
 const pdfController = new PdfController();
 const carouselController = new CarouselController();
 const alertController = new AlertController();
-const setorController = new new SetorController();
+const setorController = new SetorController();
 
 
 
@@ -120,9 +120,16 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
     
     //############################### carousel ######################################//
 
-    fastify.get("/carousel", {preHandler: authMiddlewere}, carouselController.handleGet)
+    fastify.get("/carousel/p", {preHandler: authMiddlewere}, carouselController.handleGet)
+
+    fastify.get("/carousel", {preHandler: authMiddlewere}, carouselController.handleGetAdm)
 
     fastify.post("/carousel", {preHandler: adminAuthMiddlewere}, carouselController.handleCreate)
+
+    fastify.delete("/carousel/:id", {preHandler: adminAuthMiddlewere}, carouselController.handleDelete)
+
+    fastify.patch("/carousel/:id/:action", {preHandler : adminAuthMiddlewere}, carouselController.handleDisable)
+
 
     //############################### Alertas ######################################//
 
