@@ -30,11 +30,10 @@ class CarouselController{
  }
 
  async handleDisable(request: any, reply: any){
-   const { action } = request.params.action
+   const id = request.params.id
    const createCarouselService = new CreateCarouselService();
-   const result = await createCarouselService.executeDisable(action)
+   const result = await createCarouselService.executeDisable(id)
    return reply.send(result)
-
 }
 
 }

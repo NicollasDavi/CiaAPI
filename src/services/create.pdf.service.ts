@@ -29,8 +29,12 @@ class CreatePdfService{
 
     }
 
-    async executeDisable(action: any){
-
+    async executeDisable(){
+        try {
+            return await pdfRepository.disable()
+        } catch (error) {
+            
+        }
     }
 }
 

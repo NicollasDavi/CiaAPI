@@ -28,9 +28,8 @@ class PdfController{
     }
 
     async handleDisable(request: any, reply: any){
-        const { action } = request.params.action
         const createPdfService = new CreatePdfService()
-        const result = createPdfService.executeDisable(action)
+        const result = createPdfService.executeDisable()
     }
 }
 export { PdfController }

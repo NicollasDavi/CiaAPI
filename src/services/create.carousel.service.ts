@@ -33,9 +33,9 @@ class CreateCarouselService{
         }
     }
 
-    async executeDisable(id: any, active: any){
+    async executeDisable(id: any){
         try{
-            return carouselRepository.disable(id, active)
+            return carouselRepository.disable(id)
         } catch (error: any){
             throw new Error("Erro de Validação:" + error.errors)
         }

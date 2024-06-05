@@ -32,8 +32,35 @@ class pdfRepository{
     }
 
     async get(){
-        const existPdf = await prisma.pdfFile.findFirst();
-        return existPdf?.url
+        const existPdf = await prisma.pdfFile.findFirst({
+            where : {
+                active : true
+            }
+        });
+        return existPdf
+    }
+
+    async disable(){
+        const pdf = await prisma.pdfFile.findFirst()
+        if(pdf?.active == true){
+            await prisma.pdfFile.update({
+                where :{
+                    id : pdf?.id
+                },
+                data: {
+                    active: false
+                }
+            })
+        }else if(pdf?.active == false){
+            await prisma.pdfFile.update({
+                where :{
+                    id : pdf?.id
+                },
+                data: {
+                    active: true
+                }
+            })
+        }
     }
 }
 

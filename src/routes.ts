@@ -128,7 +128,7 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
     fastify.delete("/carousel/:id", {preHandler: adminAuthMiddlewere}, carouselController.handleDelete)
 
-    fastify.patch("/carousel/:id/:action", {preHandler : adminAuthMiddlewere}, carouselController.handleDisable)
+    fastify.patch("/carousel/:id", {preHandler : adminAuthMiddlewere}, carouselController.handleDisable)
 
 
     //############################### Alertas ######################################//

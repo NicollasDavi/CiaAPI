@@ -45,31 +45,32 @@ class CarouselRepository{
         return img
     }
 
-    async disable(id: any, action : any){
+    async disable(id: any){
         try {
-          if(action == 0){
-            console.log(id)
-            const unidade = await prisma.carouselItem.update({
+            const image = await prisma.carouselItem.findUnique({
               where: {
                 id
-              },
-              data: {
-                active : false
               }
             })
-            return {unidade}
-          }else{
-            const unidade = await prisma.carouselItem.update({
-              where: {
-                id
-              },
-              data: {
-                active : true
-              }
-            })
-            return {unidade}
-          }
-          
+            if(image?.active == true){
+              await prisma.carouselItem.update({
+                where : {
+                  id
+                },
+                data: {
+                  active : false
+                }
+              })
+            }else if(image?.active == false){
+              await prisma.carouselItem.update({
+                where : {
+                  id
+                },
+                data: {
+                  active : true
+                }
+              })
+            }
         } catch (error: any) {
           throw new Error("Erro ao desabilitar unidade" + error.erros)
         }
