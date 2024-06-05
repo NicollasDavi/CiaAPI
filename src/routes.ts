@@ -8,6 +8,7 @@ import {UnidadeController} from "./controllers/unidade.controller"
 import {PdfController} from "./controllers/pdf.controller"
 import { CarouselController } from "./controllers/carousel.controller"
 import { AlertController } from "./controllers/alert.controller"
+import { SetorController } from "./controllers/setor.controller"
 
 
 import { authMiddlewere } from "./middleweres/auth.middlewere";
@@ -23,6 +24,8 @@ const unidadeController = new UnidadeController();
 const pdfController = new PdfController();
 const carouselController = new CarouselController();
 const alertController = new AlertController();
+const setorController = new new SetorController();
+
 
 
 export async function routes(fastify: FastifyInstance, options: FastifyPluginOptions) {
@@ -128,4 +131,15 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
     fastify.get("/alerts", {preHandler : authMiddlewere}, alertController.handleGetAll)
 
     fastify.delete("/alert/:id",{preHandler: adminAuthMiddlewere} , alertController.handleDelete)
+
+    //############################### Setores ######################################//
+
+    fastify.post("/setor", {preHandler : adminAuthMiddlewere}, setorController.handleCreate)
+
+    fastify.get("/setores", {preHandler : authMiddlewere}, setorController.handleGetAll)
+
+    fastify.get("/setor/:id", {preHandler : authMiddlewere}, setorController.handleGetOne)
+
+    fastify.delete("/setor/:id", {preHandler : adminAuthMiddlewere}, setorController.handleDelete)
+
 }
