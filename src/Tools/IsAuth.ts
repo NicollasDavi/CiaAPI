@@ -24,7 +24,7 @@ class isAuth{
 
     async create(matricula: number) {
         try {
-            const token = jwt.sign({ matricula }, '2GxH#k8!wZs@p$U4', { expiresIn: '1h' });
+            const token = jwt.sign({ matricula }, '2GxH#k8!wZs@p$U4', { expiresIn: '24h' });
 
             await prisma.usuario.update({
                 where: {

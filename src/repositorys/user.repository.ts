@@ -43,6 +43,23 @@ class UserRepository{
         }
     }
 
+ 
+    async update(id: number, data: any) {
+      try {
+        const updatedUser = await prisma.usuario.update({
+          where: {
+            matricula: id,
+          },
+          data,
+        });
+        console.log(updatedUser)
+        return { updatedUser };
+      } catch (error: any) {
+        throw new Error(error.message);
+      }
+    }
+    
+
     async logOut(id: number){
         try {
             const findedUser = await prisma.usuario.update({

@@ -29,6 +29,14 @@ class CreateUserService{
         }
     }
 
+    async executeUpdate(id: number, body : any){
+        try {
+            return await userRepository.update(id, body );
+        } catch (error: any) {
+            throw new Error("Erro de validação: " + error.errors);
+        }
+    }
+
     async executeLogOut(id: number){
         remove(id)
         try {

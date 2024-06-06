@@ -23,6 +23,19 @@ class UserController{
         }
     }
 
+    async handleUpdate(request: any, reply: any){
+        const id = parseInt(request.params.id);
+        const { body } = request
+
+        try{
+            const createUserService = new CreateUserService();
+            const result = await createUserService.executeUpdate(id, body);
+            return reply.send(result);
+        } catch (error: any) {
+            return reply.status(400).send({ error: error.message });
+        }
+    }
+
     async handleLogOut(request: any, reply: any){
         const id = parseInt(request.params.id);
         try{

@@ -27,6 +27,7 @@ class DocController{
         const id = request.params.id;
         const createDocService = new CreateDocService();
         const result = await createDocService.executeGetOne(id);
+        console.log(result)
         return reply.send(result);
     }
 

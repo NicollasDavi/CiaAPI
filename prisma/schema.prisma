@@ -13,7 +13,10 @@ model Usuario{
   matricula Int @id
   nome String
   senha String
+  email String @default(" ")
+  foto String @default(" ")
   admin Boolean @default(false)
+  cargo String @default(" ")
   isN Boolean @default(false)
   token String @default(" ")
   isAuth Boolean @default(false)
