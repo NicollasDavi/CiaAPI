@@ -10,9 +10,15 @@ interface CursoData {
 }
 
 class CalcRepository {
-    async calcularMensalidadeDoCurso(data: CursoData) {
-        const { nome, unidade, parcelamento, desconto } = data;
-
+    async calcularMensalidadeDoCurso(data: any) {
+        const { nome, unidade, parcelamento, desconto, adicional } = data;
+        let valorAdicional = 0;
+    
+        if (adicional === "Posiplay") {
+            valorAdicional = 654.78;
+        } else if (adicional === "Integral") {
+            valorAdicional = 2657.44;
+        }
         try {
             const cursos = await prisma.cursoValor.findMany({ 
                 where: { 
@@ -20,24 +26,24 @@ class CalcRepository {
                     unidade 
                 } 
             });
-            console.log(cursos)
-
+    
             if (!cursos || cursos.length === 0) {
                 throw new Error(`Cursos com o nome ${nome} na unidade ${unidade} não encontrados.`);
             }
-
-            const calcularMensalidade = (valorEscola: number, valorMaterial: number, parcelamento: number): number => {
-                return (valorEscola + valorMaterial) / parcelamento;
+    
+            const calcularMensalidade = (valorEscola: number, valorMaterial: number, parcelamento: number, adicional: number): number => {
+                return (valorEscola + valorMaterial + adicional) / parcelamento;
             };
-
-            const calcularMensalidadeDesconto = (valorEscola: number, valorMaterial: number, parcelamento: number, desconto: number): number => {
+    
+            const calcularMensalidadeDesconto = (valorEscola: number, valorMaterial: number, parcelamento: number, desconto: number, adicional: number): number => {
                 const valorEscolaComDesconto = valorEscola * (1 - (desconto / 100));
-                return (valorEscolaComDesconto + valorMaterial) / parcelamento;
+                return (valorEscolaComDesconto + valorMaterial + adicional) / parcelamento;
             };
-
+    
             const resultado = {
                 mensalidadeManha: "",
                 mensalidadeTarde: "",
+                adicional: "",
                 mensalidadeNoite: "",
                 mensalidadeOnline: "",
                 mensalidadeManhaDesconto: "",
@@ -45,25 +51,24 @@ class CalcRepository {
                 mensalidadeNoiteDesconto: "",
                 mensalidadeOnlineDesconto: ""
             };
-
+    
             cursos.forEach(curso => {
                 const { turno, valor_E: valorEscola, valor_M: valorMaterial } = curso;
-
+    
                 const mensalidade = parcelamento === 1 
                     ? valorEscola + valorMaterial 
-                    : calcularMensalidade(valorEscola, valorMaterial, parcelamento);
-
+                    : calcularMensalidade(valorEscola, valorMaterial, parcelamento, valorAdicional);
+    
                 const mensalidadeDesconto = parcelamento === 1 
                     ? valorEscola * (1 - (desconto / 100)) + valorMaterial 
-                    : calcularMensalidadeDesconto(valorEscola, valorMaterial, parcelamento, desconto);
-
+                    : calcularMensalidadeDesconto(valorEscola, valorMaterial, parcelamento, desconto, valorAdicional);
+    
                 const mensalidadeFormatada = mensalidade.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
                 const mensalidadeDescontoFormatada = mensalidadeDesconto.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-
+    
                 switch (turno) {
                     case 'M':
                         resultado.mensalidadeManha = mensalidadeFormatada;
-                        console.log(resultado.mensalidadeManha)
                         resultado.mensalidadeManhaDesconto = mensalidadeDescontoFormatada;
                         break;
                     case 'T':
@@ -80,15 +85,13 @@ class CalcRepository {
                         break;
                 }
             });
-            console.log(resultado)
-
+    
             return resultado;
         } catch (error) {
-            console.error('Erro ao calcular mensalidade do curso:', error);
             throw new Error("Ocorreu um erro ao calcular a mensalidade do curso.");
         }
     }
-
+    
     async calcularInverso(data: any) {
         const { id, unidade, turno, parcelamento, desconto } = data;
 
@@ -105,7 +108,6 @@ class CalcRepository {
 
             return { mensalidade: `${descontoDado.toFixed(2)}%` };
         } catch (error) {
-            console.error('Erro ao calcular inverso:', error);
             throw new Error('Ocorreu um erro ao calcular o inverso.');
         }
     }

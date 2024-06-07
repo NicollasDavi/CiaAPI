@@ -8,6 +8,7 @@ class CarouselRepository{
                 image : data
             }
         })
+        console.log(newCarouselImage)
         return newCarouselImage
     }
 

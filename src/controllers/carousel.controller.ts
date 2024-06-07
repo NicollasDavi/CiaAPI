@@ -11,14 +11,12 @@ class CarouselController{
  async handleGet(request : any, reply: any){
     const createCarouselService = new CreateCarouselService();
     const result = await createCarouselService.executeGet()
-    console.log(result)
     return reply.send(result)
  }
 
  async handleGetAdm(request: any, reply: any){
    const createCarouselService = new CreateCarouselService();
    const result = await createCarouselService.executeGetAdm()
-   console.log(result)
    return reply.send(result)
  }
 
