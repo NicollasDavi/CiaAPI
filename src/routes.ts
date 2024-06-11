@@ -9,6 +9,8 @@ import {PdfController} from "./controllers/pdf.controller"
 import { CarouselController } from "./controllers/carousel.controller"
 import { AlertController } from "./controllers/alert.controller"
 import { SetorController } from "./controllers/setor.controller"
+import { BugFeatureController } from "./controllers/BugFeatureController";
+import { DiskController } from "./controllers/disk";
 
 import { authMiddlewere } from "./middleweres/auth.middlewere";
 import { adminAuthMiddlewere } from "./middleweres/adminAuth.moddlewere";
@@ -23,6 +25,8 @@ const pdfController = new PdfController();
 const carouselController = new CarouselController();
 const alertController = new AlertController();
 const setorController = new SetorController();
+const bugFeatureController = new BugFeatureController();
+const diskController = new DiskController()
 
 export async function routes(fastify: FastifyInstance, options: FastifyPluginOptions) {
 
@@ -146,4 +150,15 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
     fastify.delete("/setor/:id", {preHandler : adminAuthMiddlewere}, setorController.handleDelete)
 
+    //############################### Bugs ######################################//
+
+    fastify.post("/bof", {preHandler : adminAuthMiddlewere}, bugFeatureController.handleCreate)
+
+    fastify.get("/bof", {preHandler : adminAuthMiddlewere} , bugFeatureController.handleGetAll)
+
+    fastify.delete("/bof/:id", {preHandler : adminAuthMiddlewere}, bugFeatureController.handleDelete)
+
+    //############################### Infra ######################################//
+
+    fastify.get("/disk", { preHandler : adminAuthMiddlewere}, diskController.handleget)
 }

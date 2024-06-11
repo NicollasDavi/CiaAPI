@@ -97,7 +97,8 @@ class UserRepository{
         }
     }
 
-    async login(data: any) {        const { matricula, password } = data;
+    async login(data: any) {
+        const { matricula, password } = data;
         const matriculaInt = parseInt(matricula);
     
         try {
@@ -110,6 +111,7 @@ class UserRepository{
             const nome = login?.nome
             if (login) {
                 const isAdm = login.admin;
+                const isN = login.isN
     
                 const verifyToken = await verify(matricula, login.token);
 
@@ -125,26 +127,26 @@ class UserRepository{
                 if (verifyToken) {
 
                     const createdToken = await create(matricula);
-                    console.log({ URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm, MAT: matricula})
+                    console.log({ URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm, MAT: matricula, ISN : isN})
 
                     if (isAdm) {
             
-                        return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm, MAT: matricula};
+                        return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm, MAT: matricula, ISN : isN};
                     } else {
-                        return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm, MAT: matricula };
+                        return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm, MAT: matricula , ISN : isN};
                         
                     }
                 }else{
                             remove(matricula)
 
                     const createdToken = await create(matricula);
-                    console.log({ URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm, MAT: matricula})
+                    console.log({ URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm, MAT: matricula, ISN : isN})
 
                     if (isAdm) {
             
-                        return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm, MAT: matricula};
+                        return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm, MAT: matricula, ISN : isN};
                     } else {
-                        return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm, MAT: matricula};
+                        return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm, MAT: matricula, ISN : isN};
                     }
                 }
             } else {
