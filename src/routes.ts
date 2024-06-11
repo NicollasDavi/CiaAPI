@@ -10,10 +10,8 @@ import { CarouselController } from "./controllers/carousel.controller"
 import { AlertController } from "./controllers/alert.controller"
 import { SetorController } from "./controllers/setor.controller"
 
-
 import { authMiddlewere } from "./middleweres/auth.middlewere";
 import { adminAuthMiddlewere } from "./middleweres/adminAuth.moddlewere";
-
 
 const cursoController = new CursoController();
 const userController = new UserController();
@@ -25,8 +23,6 @@ const pdfController = new PdfController();
 const carouselController = new CarouselController();
 const alertController = new AlertController();
 const setorController = new SetorController();
-
-
 
 export async function routes(fastify: FastifyInstance, options: FastifyPluginOptions) {
 
@@ -112,16 +108,12 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
     //############################### pdf ######################################//
 
-    fastify.get("/pdf", {preHandler: authMiddlewere}, pdfController.handleGet)
+    fastify.get("/pdf", pdfController.handleGet)
 
     fastify.get("/pdf/adm", {preHandler: authMiddlewere}, pdfController.handleGetAdm)
 
     
     fastify.put("/pdf", {preHandler: adminAuthMiddlewere}, pdfController.handleUpdate)
-
-    fastify.patch("/pdf", {preHandler: adminAuthMiddlewere}, pdfController.handleDisable)
-
-    fastify.delete("/pdf", {preHandler : adminAuthMiddlewere}, pdfController.handleDelete)
     
     //############################### carousel ######################################//
 
