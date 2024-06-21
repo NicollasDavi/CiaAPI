@@ -76,6 +76,9 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
     fastify.post("/doc", {preHandler: authMiddlewere}, docController.handleCreate)
 
+    fastify.post("/arq", {preHandler: authMiddlewere}, docController.handleCreateArq)
+
+
     fastify.get("/docs/:id",{preHandler: authMiddlewere},  docController.handleGetAll)
 
     fastify.get("/all/docs" , {preHandler : authMiddlewere} , docController.handleGetAllAdm)
@@ -115,7 +118,6 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
     fastify.get("/pdf", pdfController.handleGet)
 
     fastify.get("/pdf/adm", {preHandler: authMiddlewere}, pdfController.handleGetAdm)
-
     
     fastify.put("/pdf", {preHandler: adminAuthMiddlewere}, pdfController.handleUpdate)
     

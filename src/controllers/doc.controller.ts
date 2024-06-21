@@ -1,5 +1,9 @@
 import {CreateDocService} from "../services/create.doc.service"
 
+import path from 'path';
+import fs from 'fs';
+import { v4 as uuidv4 } from 'uuid';
+
 class DocController{
     async handleCreate(request: any, reply: any){
         const { body } = request
@@ -8,6 +12,50 @@ class DocController{
         const result = await createDocService.executeCreate(body);
         return reply.send(result);
     }
+
+
+
+    
+    async  handleCreateArq(request: any, reply: any) {
+    try {
+        if (!request.isMultipart()) {
+            return reply.status(400).send({ error: 'Nenhum arquivo enviado' });
+        }
+        
+        const docsDir = path.join(__dirname, '../docs');
+
+        await fs.promises.mkdir(docsDir, { recursive: true });
+
+        const parts = request.files();
+
+        for await (const part of parts) {
+            const file = part.file;
+            const extension = path.extname(part.filename).toLowerCase();
+            if (extension !== '.pdf' && extension !== '.doc' && extension !== '.docx') {
+                return reply.status(400).send({ error: 'Apenas arquivos PDF e Word são permitidos' });
+            }
+
+            const filename = `${uuidv4()}${extension}`;
+            const filePath = path.join(docsDir, filename);
+
+            await new Promise<void>((resolve, reject) => {
+                const writeStream = fs.createWriteStream(filePath);
+                file.pipe(writeStream);
+                writeStream.on('finish', () => {
+                    resolve();
+                });
+                writeStream.on('error', (err) => {
+                    reject(err);
+                });
+            });
+        }
+
+        return { message: 'Arquivos enviados com sucesso' };
+    } catch (error) {
+        console.error('Erro ao salvar o arquivo:', error);
+        return reply.status(500).send({ error: 'Erro ao salvar o arquivo' });
+    }
+}
 
     async handleGetAll(request: any, reply: any){
         console.log("entrou")
