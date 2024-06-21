@@ -3,6 +3,7 @@ import {CreateDocService} from "../services/create.doc.service"
 import path from 'path';
 import fs from 'fs';
 import { v4 as uuidv4 } from 'uuid';
+import { lerArquivo } from "./limparUpload";
 
 class DocController{
     async handleCreate(request: any, reply: any){
@@ -54,6 +55,26 @@ class DocController{
     } catch (error) {
         console.error('Erro ao salvar o arquivo:', error);
         return reply.status(500).send({ error: 'Erro ao salvar o arquivo' });
+    }
+}
+
+async handleGetArq(request: any, reply: any) {
+    const id = request.params.id;
+    try {
+        const fileData = await lerArquivo(id);
+        let mimeType;
+        if (id.endsWith('.pdf')) {
+            mimeType = 'application/pdf';
+        } else if (id.endsWith('.doc') || id.endsWith('.docx')) {
+            mimeType = 'application/msword';
+        } else {
+            return reply.status(400).send({ error: 'Tipo de arquivo não suportado' });
+        }
+        const base64Data = Buffer.from(fileData).toString('base64');
+        const fileUrl = `data:${mimeType};base64,${base64Data}`;
+        return reply.send({ fileUrl });
+    } catch (error) {
+        return reply.status(500).send({ error: 'Erro ao ler o arquivo' });
     }
 }
 

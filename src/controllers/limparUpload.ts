@@ -14,8 +14,20 @@ export const limparDiretorioUploads = async () => {
 
 export const lerArquivoPDF = async () => {
     try {
-        const nomeDoArquivo = 'informativo.pdf'; // Nome do arquivo PDF
+        const nomeDoArquivo = 'informativo.pdf';
         const caminhoDoArquivo = path.join(__dirname, `../uploads/${nomeDoArquivo}`);
+        const pdfData = await fs.promises.readFile(caminhoDoArquivo);
+        return pdfData;
+    } catch (error) {
+        console.error('Erro ao ler o PDF:', error);
+        throw new Error('Erro ao ler o PDF');
+    }
+}
+
+export const lerArquivo = async (id : string) => {
+    try {
+        const nomeDoArquivo = id;
+        const caminhoDoArquivo = path.join(__dirname, `../docs/${nomeDoArquivo}`);
         const pdfData = await fs.promises.readFile(caminhoDoArquivo);
         return pdfData;
     } catch (error) {

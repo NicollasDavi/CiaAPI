@@ -78,6 +78,7 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
     fastify.post("/arq", {preHandler: authMiddlewere}, docController.handleCreateArq)
 
+    fastify.get("/arq/:id",{preHandler: authMiddlewere},  docController.handleGetArq)
 
     fastify.get("/docs/:id",{preHandler: authMiddlewere},  docController.handleGetAll)
 
