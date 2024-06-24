@@ -52,7 +52,7 @@ class CalcRepository {
                 mensalidadeOnlineDesconto: ""
             };
     
-            cursos.forEach(curso => {
+            cursos.forEach((curso : any) => {
                 const { turno, valor_E: valorEscola, valor_M: valorMaterial } = curso;
     
                 const mensalidade = parcelamento === 1 

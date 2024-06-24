@@ -80,6 +80,8 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
     fastify.get("/arq/:id",{preHandler: authMiddlewere},  docController.handleGetArq)
 
+    fastify.get("/docs/adm", { preHandler : adminAuthMiddlewere }, docController.handleGetDesactivateds)
+
     fastify.get("/docs/:id",{preHandler: authMiddlewere},  docController.handleGetAll)
 
     fastify.get("/all/docs" , {preHandler : authMiddlewere} , docController.handleGetAllAdm)

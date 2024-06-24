@@ -1,6 +1,5 @@
 import { string, z } from "zod";
 import calcRepository from "../repositorys/calc.repository";
-import { Curso } from "@prisma/client";
 
 
 class CreateCalcService{
@@ -13,7 +12,7 @@ class CreateCalcService{
     }
     
 
-    async executeCalcInverse(data : Curso){
+    async executeCalcInverse(data : any){
         try {
             return calcRepository.calcularInverso(data)
         } catch (error) {

@@ -1,10 +1,10 @@
-import { Curso, CursoValor, PrismaClient } from "@prisma/client";
+import {  PrismaClient } from "@prisma/client";
 import { number } from "zod";
 
 const prisma = new PrismaClient();
 
 class CursoRepository{
-    async save(curso: Curso){
+    async save(curso: any){
         try {
             const { nome, informacao,unidade, turno, imagem, matricula } = curso;
        

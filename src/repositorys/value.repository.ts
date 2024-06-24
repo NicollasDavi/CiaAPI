@@ -1,9 +1,9 @@
-import { CursoValor, PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient()
 
 class ValueRepository{
-    async save(curso: CursoValor){
+    async save(curso: any){
         try {
             console.log("first")
             const { nome, valor_E, valor_M, unidade, turno} = curso;

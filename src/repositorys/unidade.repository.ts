@@ -1,9 +1,9 @@
-import { PrismaClient, Unidades } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
 class UnidadeRepository {
-  async save(data: Unidades) {
+  async save(data: any) {
     try {
       const unidade = await prisma.unidades.create({
         data: {

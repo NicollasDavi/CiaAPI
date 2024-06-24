@@ -31,7 +31,18 @@ export const lerArquivo = async (id : string) => {
         const pdfData = await fs.promises.readFile(caminhoDoArquivo);
         return pdfData;
     } catch (error) {
-        console.error('Erro ao ler o PDF:', error);
-        throw new Error('Erro ao ler o PDF');
+        console.error('Erro ao ler o arquivo:', error);
+        throw new Error('Erro ao ler o arquivo');
+    }
+}
+
+export const deletarArquivo = async (id: string) => {
+    try {
+        const caminhoDoArquivo = path.join(__dirname, `../docs/${id}`);
+        await fs.promises.unlink(caminhoDoArquivo);
+        console.log(`Arquivo ${id} deletado com sucesso`);
+    } catch (error) {
+        console.error(`Erro ao deletar o arquivo ${id}:`, error);
+        throw new Error(`Erro ao deletar o arquivo ${id}`);
     }
 }

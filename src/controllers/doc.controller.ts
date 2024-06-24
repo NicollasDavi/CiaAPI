@@ -1,22 +1,21 @@
 import {CreateDocService} from "../services/create.doc.service"
+import { lerArquivo } from "./limparUpload";
 
 import path from 'path';
 import fs from 'fs';
 import { v4 as uuidv4 } from 'uuid';
-import { lerArquivo } from "./limparUpload";
+import mammoth from 'mammoth';
+import PDFDocument from 'pdfkit';
 
-class DocController{
-    async handleCreate(request: any, reply: any){
-        const { body } = request
-        console.log(body)
+class DocController {
+    async handleCreate(request: any, reply: any) {
+        const { body } = request;
+        console.log(body);
         const createDocService = new CreateDocService();
         const result = await createDocService.executeCreate(body);
         return reply.send(result);
     }
 
-
-
-    
     async handleCreateArq(request: any, reply: any) {
         try {
             if (!request.isMultipart()) {
@@ -42,15 +41,38 @@ class DocController{
                 await new Promise<void>((resolve, reject) => {
                     const writeStream = fs.createWriteStream(filePath);
                     file.pipe(writeStream);
-                    writeStream.on('finish', () => {
-                        return reply.send({ arqId : filename });
+                    writeStream.on('finish', async () => {
+                        if (extension === '.doc' || extension === '.docx') {
+                            try {
+                                const pdfFilename = `${uuidv4()}.pdf`;
+                                const pdfPath = path.join(docsDir, pdfFilename);
+    
+                                const { value: text } = await mammoth.extractRawText({ path: filePath });
+                                const pdfDoc = new PDFDocument();
+                                const pdfWriteStream = fs.createWriteStream(pdfPath);
+    
+                                pdfDoc.pipe(pdfWriteStream);
+                                pdfDoc.text(text);
+                                pdfDoc.end();
+    
+                                pdfWriteStream.on('finish', () => {
+                                    return reply.send({ arqId: pdfFilename });
+                                });
+                                pdfWriteStream.on('error', (err) => {
+                                    reject(err);
+                                });
+                            } catch (err) {
+                                reject(err);
+                            }
+                        } else {
+                            return reply.send({ arqId: filename });
+                        }
                     });
                     writeStream.on('error', (err) => {
                         reject(err);
                     });
                 });
             }
-
     
         } catch (error) {
             console.error('Erro ao salvar o arquivo:', error);
@@ -58,55 +80,61 @@ class DocController{
         }
     }
     
-
-async handleGetArq(request: any, reply: any) {
-    const id = request.params.id;
-    try {
-        const fileData = await lerArquivo(id);
-        let mimeType;
-        if (id.endsWith('.pdf')) {
-            mimeType = 'application/pdf';
-        } else if (id.endsWith('.doc') || id.endsWith('.docx')) {
-            mimeType = 'application/msword';
-        } else {
-            return reply.status(400).send({ error: 'Tipo de arquivo não suportado' });
+    async handleGetArq(request: any, reply: any) {
+        const id = request.params.id;
+        try {
+            const fileData = await lerArquivo(id);
+            let mimeType;
+            if (id.endsWith('.pdf')) {
+                mimeType = 'application/pdf';
+            } else if (id.endsWith('.doc') || id.endsWith('.docx')) {
+                mimeType = 'application/msword';
+            } else {
+                return reply.status(400).send({ error: 'Tipo de arquivo não suportado' });
+            }
+            const base64Data = Buffer.from(fileData).toString('base64');
+            const fileUrl = `data:${mimeType};base64,${base64Data}`;
+            return reply.send({ fileUrl: fileUrl });
+        } catch (error) {
+            console.error('Erro ao ler o arquivo:', error);
+            return reply.status(500).send({ error: 'Erro ao ler o arquivo' });
         }
-        const base64Data = Buffer.from(fileData).toString('base64');
-        const fileUrl = `data:${mimeType};base64,${base64Data}`;
-        return reply.send({ fileUrl : fileUrl });
-    } catch (error) {
-        return reply.status(500).send({ error: 'Erro ao ler o arquivo' });
     }
-}
 
-    async handleGetAll(request: any, reply: any){
-        const id = request.params.id
+    async handleGetAll(request: any, reply: any) {
+        const id = request.params.id;
         const createDocService = new CreateDocService();
         const result = await createDocService.executeGetAll(id);
         return reply.send(result);
     }
 
-    async handleGetAllAdm(request: any, reply: any){
+    async handleGetAllAdm(request: any, reply: any) {
         const createDocService = new CreateDocService();
         const result = await createDocService.executeGetAllAdm();
         return reply.send(result);
     }
 
-    async handleGetOne(request: any, reply: any){
+    async handleGetOne(request: any, reply: any) {
         const id = request.params.id;
         const createDocService = new CreateDocService();
         const result = await createDocService.executeGetOne(id);
-        console.log(result)
+        console.log(result);
         return reply.send(result);
     }
 
-    async handleDelete(request: any, reply: any){
-        const id = request.params.id
-        const action = request.params.action
+    async handleDelete(request: any, reply: any) {
+        const id = request.params.id;
+        const action = request.params.action;
         const createDocService = new CreateDocService();
-        const result = createDocService.executeDelete(id, action)
+        const result = createDocService.executeDelete(id, action);
+        return reply.send(result);
+    }
+
+    async handleGetDesactivateds(request: any, reply: any){
+        const createDocService = new CreateDocService();
+        const result = await createDocService.executeGetDesactivateds();
         return reply.send(result)
     }
 }
 
-export { DocController }
+export { DocController };

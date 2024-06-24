@@ -1,6 +1,5 @@
 import { z } from "zod";
 import userRepository from "../repositorys/user.repository";
-import { Usuario } from "@prisma/client";
 import { remove } from "../Tools/IsAuth";
 
 class CreateUserService{
@@ -13,7 +12,7 @@ class CreateUserService{
         }
     };
 
-    async executeCreate(data : Usuario){
+    async executeCreate(data : any){
         try {
             return userRepository.save(data);
         } catch (error: any) {

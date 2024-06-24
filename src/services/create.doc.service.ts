@@ -36,12 +36,17 @@ class CreateDocService {
 
     async executeDelete(id: string, action: any){
         try {
-            console.log(id)
             return docRepository.delete(id, action)
         } catch (error: any) {
-            console.log(id)
-
             throw new Error("Erro ao deletar documento" + error.erros)
+        }
+    }
+
+    async executeGetDesactivateds(){
+        try {
+            return docRepository.getDesactivated()
+        } catch (error: any) {
+            throw new Error("Erro ao localizar docs desativados" + error.errors)
         }
     }
 }

@@ -1,4 +1,0 @@
--- AlterTable
-ALTER TABLE "Usuario" ADD COLUMN     "cargo" TEXT NOT NULL DEFAULT ' ',
-ADD COLUMN     "email" TEXT NOT NULL DEFAULT ' ',
-ADD COLUMN     "foto" TEXT NOT NULL DEFAULT ' ';
