@@ -14,7 +14,8 @@ class DocRepository{
                   create: data.types.map((tipo : any)=> ({
                     type: tipo.type,
                     text: tipo.text,
-                    img: tipo.img
+                    img: tipo.img,
+                    arqId: tipo.arqId,
                   }))
                 }
               },
@@ -28,7 +29,6 @@ class DocRepository{
             throw error;
           }
         }
-
 
         async getAll(id: string){
           try {
@@ -73,15 +73,16 @@ class DocRepository{
                   id: id
               },
               select: {
-                  userId: true 
+                  userId: true,
+                  nome: true
               }
           });
   
           if (!pagina) {
               throw new Error(`Página com id ${id} não encontrada`);
           }
-
-          return { docTypes, userId: pagina.userId };
+          console.log(pagina)
+          return { docTypes, userId: pagina.userId, nome: pagina.nome};
       } catch (error: any) {
           throw new Error(`Erro na consulta: ${error.message}`);
       }
