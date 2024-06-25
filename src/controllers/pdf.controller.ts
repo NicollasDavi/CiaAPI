@@ -43,7 +43,7 @@ class PdfController{
             const uploadsDir = path.join(__dirname, '../uploads');
             
             const filesInUploadsDir = await fs.promises.readdir(uploadsDir);
-            if (filesInUploadsDir.length > 0) {
+            if (filesInUploadsDir.length > 1) {
                 await limparDiretorioUploads()
             }
     

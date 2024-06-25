@@ -3,13 +3,18 @@ import { PrismaClient } from "@prisma/client"
 const prisma = new PrismaClient
 class CarouselRepository{
     async save(data : string){
+      try {
         const newCarouselImage = await prisma.carouselItem.create({
-            data: {
-                image : data
-            }
+          data: {
+              image : data
+          }
         })
         console.log(newCarouselImage)
         return newCarouselImage
+      } catch (error : any) {
+        console.log(error.errors)
+      }
+        
     }
 
     async getAll(){

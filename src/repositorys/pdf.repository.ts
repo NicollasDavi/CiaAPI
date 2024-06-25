@@ -1,13 +1,13 @@
-import { PrismaClient } from "@prisma/client"
+import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient
-class pdfRepository{
-    async save(data: any){
+const prisma = new PrismaClient();
+
+class pdfRepository {
+    async save(data: any) {
         const pdf = await prisma.pdfFile.create({
             data
-        })
-
-        return pdf
+        });
+        return pdf;
     }
 
     async update(data: string) {
@@ -16,7 +16,8 @@ class pdfRepository{
             const pdf = await prisma.pdfFile.create({
                 data: {
                     id: "1",
-                    url: data
+                    url: data,
+                    active: true
                 }
             });
             return pdf;
@@ -25,48 +26,41 @@ class pdfRepository{
                 where: {
                     id: "1"
                 },
-                data
+                data: {
+                    url: data
+                }
             });
             return pdf;
         }
     }
 
-    async get(){
+    async get() {
         const existPdf = await prisma.pdfFile.findFirst({
-            where : {
-                active : true
+            where: {
+                active: true
             }
         });
-        return existPdf?.url
+        return existPdf?.url;
     }
 
-    async getAll(){
+    async getAll() {
         const existPdf = await prisma.pdfFile.findFirst();
-        return existPdf
+        return existPdf;
     }
 
-    async disable(){
-        const pdf = await prisma.pdfFile.findFirst()
-        if(pdf?.active == true){
+    async disable() {
+        const pdf = await prisma.pdfFile.findFirst();
+        if (pdf) {
             await prisma.pdfFile.update({
-                where :{
-                    id : pdf?.id
+                where: {
+                    id: pdf.id
                 },
                 data: {
-                    active: false
+                    active: !pdf.active
                 }
-            })
-        }else if(pdf?.active == false){
-            await prisma.pdfFile.update({
-                where :{
-                    id : pdf?.id
-                },
-                data: {
-                    active: true
-                }
-            })
+            });
         }
     }
 }
 
-export default new pdfRepository()
+export default new pdfRepository();

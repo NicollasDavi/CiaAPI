@@ -5,7 +5,11 @@ export const limparDiretorioUploads = async () => {
     const uploadsDir = path.join(__dirname, '../uploads');
 
     try {
-        await fs.promises.rmdir(uploadsDir, { recursive: true });
+        const arquivos = await fs.promises.readdir(uploadsDir);
+        for (const arquivo of arquivos) {
+            const filePath = path.join(uploadsDir, arquivo);
+            await fs.promises.unlink(filePath);
+        }
         console.log('Conteúdo do diretório de uploads limpo com sucesso');
     } catch (error) {
         console.error('Erro ao limpar o diretório de uploads:', error);
@@ -24,7 +28,7 @@ export const lerArquivoPDF = async () => {
     }
 }
 
-export const lerArquivo = async (id : string) => {
+export const lerArquivo = async (id: string) => {
     try {
         const nomeDoArquivo = id;
         const caminhoDoArquivo = path.join(__dirname, `../docs/${nomeDoArquivo}`);
