@@ -35,9 +35,9 @@ import { routes } from './routes';
 import fs from 'fs';
 
 // Carregar as chaves SSL
-const privateKey = fs.readFileSync('/nicolas/private.key', 'utf8');
-const certificate = fs.readFileSync('/nicolas/certificate.crt', 'utf8');
-const ca = fs.readFileSync('/nicolas/ca_bundle.crt', 'utf8');
+const privateKey = fs.readFileSync('/home/nicolas/private.key', 'utf8');
+const certificate = fs.readFileSync('/home/nicolas/certificate.crt', 'utf8');
+const ca = fs.readFileSync('/home/nicolas/ca_bundle.crt', 'utf8');
 
 // Configurar as credenciais SSL
 const credentials = {
