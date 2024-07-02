@@ -1,30 +1,39 @@
-const express = require('express');
-const cors = require('cors');
-const fs = require('fs');
-const https = require('https');
+import fastify from 'fastify';
+import fastifyCors from '@fastify/cors';
+import fastifyReplyFrom from '@fastify/reply-from';
+import fastifyMultipart from '@fastify/multipart';
+import fs from 'fs';
+import { routes } from './routes';
 
-const app = express();
-
-// Configurar CORS
-app.use(cors());
-
-// Middleware para parse de JSON
-app.use(express.json());
-
-// Registrar rotas (exemplo)
-app.post('/login', (req : any, res : any) => {
-  // Lógica de login
-  res.json({ message: 'Login successful' });
+const app = fastify({
+  https: {
+    key: fs.readFileSync('/home/nicolas/private.key'),
+    cert: fs.readFileSync('/home/nicolas/certificate.crt'),
+    ca: fs.readFileSync('/home/nicolas/ca_bundle.crt') // Inclua este se necessário
+  }
 });
 
-// Configurar HTTPS
-const options = {
-  key: fs.readFileSync('/home/nicolas/private.key'),
-  cert: fs.readFileSync('/home/nicolas/certificate.crt'),
-  ca: fs.readFileSync('/home/nicolas/ca_bundle.crt') // Inclua este se necessário
-};
+// Configurar CORS corretamente
+app.register(fastifyCors, {
+  origin: '*', // Permite qualquer origem
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'], // Permite cabeçalhos específicos
+  credentials: true, // Permite envio de cookies e cabeçalhos de autenticação
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+});
 
-const port = process.env.PORT || 4000;
-https.createServer(options, app).listen(port, () => {
-  console.log(`Server listening on port ${port}`);
+app.register(fastifyReplyFrom);
+app.register(fastifyMultipart);
+
+// Registrar rotas
+app.register(routes);
+
+const port = parseInt(process.env.PORT || '4000', 10);
+app.listen(port, '0.0.0.0', (err, address) => {
+  if (err) {
+    console.error(err);
+    process.exit(1);
+  }
+  console.log(`Server listening on ${address}`);
 });
