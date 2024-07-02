@@ -6,12 +6,7 @@ const https = require('https');
 const app = express();
 
 // Configurar CORS
-app.use(cors({
-  origin: '*', // Permite qualquer origem
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'], // Permite cabeçalhos específicos
-  credentials: true // Permite envio de cookies e cabeçalhos de autenticação
-}));
+app.use(cors());
 
 // Middleware para parse de JSON
 app.use(express.json());
