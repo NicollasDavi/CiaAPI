@@ -6,11 +6,15 @@ import { routes } from './routes';
 
 const app = fastify();
 
+// Configuração do CORS
 app.register(fastifyCors, {
-  origin: 'http://cursopositivocia.com.br', // Especifique o domínio que você quer permitir
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  origin: 'http://cursopositivocia.com.br', // Especifique o domínio permitido
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'], // Inclua OPTIONS para pré-solicitações
   allowedHeaders: ['Content-Type', 'Authorization'],
+  preflightContinue: true,
+  optionsSuccessStatus: 204
 });
+
 app.register(fastifyReplyFrom);
 app.register(fastifyMultipart);
 
