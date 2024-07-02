@@ -1,7 +1,7 @@
 import fastify from 'fastify';
 import fastifyCors from '@fastify/cors';
 import fastifyReplyFrom from '@fastify/reply-from';
-import fastifyMultipart from 'fastify-multipart';
+import fastifyMultipart from '@fastify/multipart';
 import fs from 'fs';
 import { routes } from './routes';
 
@@ -24,8 +24,10 @@ app.register(fastifyMultipart);
 
 app.register(routes);
 
-const port = process.env.PORT ? Number(process.env.PORT) : 4000;
-app.listen({port : port, host: '127.0.0.1'}, (err, address) => {
+const port = parseInt(process.env.PORT || '4000', 10); // Converte a string para número
+const host = process.env.HOST || '0.0.0.0';
+
+app.listen(port, host, (err, address) => {
   if (err) {
     console.error(err);
     process.exit(1);
