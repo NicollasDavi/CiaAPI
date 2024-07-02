@@ -25,12 +25,11 @@ app.register(fastifyMultipart);
 app.register(routes);
 
 const port = parseInt(process.env.PORT || '4000', 10); // Converte a string para número
-const host = process.env.HOST || '0.0.0.0';
-
-app.listen(port, host, (err, address) => {
+app.listen(port, '0.0.0.0', (err, address) => {
   if (err) {
     console.error(err);
     process.exit(1);
   }
   console.log(`Server listening on ${address}`);
 });
+
