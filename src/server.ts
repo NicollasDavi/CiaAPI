@@ -13,12 +13,7 @@ const app = fastify({
   }
 });
 
-app.register(fastifyCors, {
-  origin: '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: '*',
-  credentials: true // Permite envio de cookies e cabeçalhos de autenticação
-});
+app.register(fastifyCors);
 app.register(fastifyReplyFrom);
 app.register(fastifyMultipart);
 
