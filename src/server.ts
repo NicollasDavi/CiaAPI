@@ -14,10 +14,10 @@ const app = fastify({
 });
 
 app.register(fastifyCors, {
-  origin: '*', // Permite qualquer origem
+  origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true, // Permite envio de cookies e cabeçalhos de autenticação
+  allowedHeaders: '*',
+  credentials: true // Permite envio de cookies e cabeçalhos de autenticação
 });
 app.register(fastifyReplyFrom);
 app.register(fastifyMultipart);
