@@ -25,7 +25,7 @@ app.register(fastifyMultipart);
 app.register(routes);
 
 const port = process.env.PORT ? Number(process.env.PORT) : 4000;
-app.listen({ port: port, host: '0.0.0.0' }, (err, address) => {
+app.listen({port : port, host: '127.0.0.1'}, (err, address) => {
   if (err) {
     console.error(err);
     process.exit(1);
