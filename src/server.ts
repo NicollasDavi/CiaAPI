@@ -13,13 +13,23 @@ const app = fastify({
   }
 });
 
-app.register(fastifyCors);
+// Configurar CORS corretamente
+app.register(fastifyCors, {
+  origin: '*', // Permite qualquer origem
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'], // Permite cabeçalhos específicos
+  credentials: true, // Permite envio de cookies e cabeçalhos de autenticação
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+});
+
 app.register(fastifyReplyFrom);
 app.register(fastifyMultipart);
 
+// Registrar rotas
 app.register(routes);
 
-const port = parseInt(process.env.PORT || '4000', 10); // Converte a string para número
+const port = parseInt(process.env.PORT || '4000', 10);
 app.listen(port, '0.0.0.0', (err, address) => {
   if (err) {
     console.error(err);
@@ -27,4 +37,3 @@ app.listen(port, '0.0.0.0', (err, address) => {
   }
   console.log(`Server listening on ${address}`);
 });
-
