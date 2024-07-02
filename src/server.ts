@@ -15,7 +15,7 @@ const app = fastify({
 
 // Configurar CORS corretamente
 app.register(fastifyCors, {
-  origin: 'http://cursopositivocia.com.br/',
+  origin: 'http://cursopositivocia.com.br',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true, 
