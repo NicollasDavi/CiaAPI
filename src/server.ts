@@ -13,6 +13,7 @@ const app = fastify({
   }
 });
 
+
 // Configurar CORS corretamente
 app.register(fastifyCors, {
   origin: '*', // Permite qualquer origem
