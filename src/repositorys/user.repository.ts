@@ -127,26 +127,26 @@ class UserRepository{
                 if (verifyToken) {
 
                     const createdToken = await create(matricula);
-                    console.log({ URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm, MAT: matricula, ISN : isN})
+                    console.log({ URL: "http://cursopositivocia.com.br/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm, MAT: matricula, ISN : isN})
 
                     if (isAdm) {
             
-                        return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm, MAT: matricula, ISN : isN};
+                        return { URL: "http://cursopositivocia.com.br/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm, MAT: matricula, ISN : isN};
                     } else {
-                        return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm, MAT: matricula , ISN : isN};
+                        return { URL: "http://cursopositivocia.com.br/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm, MAT: matricula , ISN : isN};
                         
                     }
                 }else{
                             remove(matricula)
 
                     const createdToken = await create(matricula);
-                    console.log({ URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm, MAT: matricula, ISN : isN})
+                    console.log({ URL: "http://cursopositivocia.com.br/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm, MAT: matricula, ISN : isN})
 
                     if (isAdm) {
             
-                        return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm, MAT: matricula, ISN : isN};
+                        return { URL: "http://cursopositivocia.com.br/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm, MAT: matricula, ISN : isN};
                     } else {
-                        return { URL: "http://localhost:3000/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm, MAT: matricula, ISN : isN};
+                        return { URL: "http://cursopositivocia.com.br/pages/home", TOKEN: createdToken , USER: nome, ADM : isAdm, MAT: matricula, ISN : isN};
                     }
                 }
             } else {
@@ -174,7 +174,7 @@ class UserRepository{
             });
 
             if(user.isAuth == false){
-                return {URL: "http://localhost:3000/", RES: false}
+                return {URL: "http://cursopositivocia.com.br/", RES: false}
             }
             
             return true;
