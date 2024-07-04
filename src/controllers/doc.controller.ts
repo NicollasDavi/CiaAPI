@@ -5,7 +5,7 @@ import * as fs from 'fs'; // Usando fs padrão para métodos não-promessa
 import { promises as fsPromises } from 'fs'; // Usando fs.promises para métodos de promessa
 import { v4 as uuidv4 } from 'uuid';
 import * as mammoth from 'mammoth';
-import PDFDocument from 'pdfkit';
+import PDFDocument = require('pdfkit'); // Importação corrigida para PDFKit
 
 class DocController {
     async handleCreate(request: any, reply: any) {

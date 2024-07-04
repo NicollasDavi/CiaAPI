@@ -1,4 +1,3 @@
-import { string, z } from "zod";
 import calcRepository from "../repositorys/calc.repository";
 
 
@@ -7,7 +6,7 @@ class CreateCalcService{
         try {
             return calcRepository.calcularMensalidadeDoCurso(data)
         } catch (error) {
-            console.error("Erro ao executar o cálculo:", error instanceof z.ZodError ? error.errors : error);
+            console.error("Erro ao executar o cálculo:");
         }
     }
     
@@ -16,7 +15,7 @@ class CreateCalcService{
         try {
             return calcRepository.calcularInverso(data)
         } catch (error) {
-            console.log("Erro ao executar o cálcular:", error instanceof z.ZodError ? error.errors : error)
+            console.log("Erro ao executar o cálcular:")
         }
     }
 }

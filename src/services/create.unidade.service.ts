@@ -1,4 +1,3 @@
-import { z } from "zod";
 import unidadeRepository from "../repositorys/unidade.repository";
 
 class CreateUnidadeService {

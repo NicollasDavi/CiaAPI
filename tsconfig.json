@@ -1,13 +1,18 @@
 {
   "compilerOptions": {
-    "target": "ES2015",
-    "module": "commonjs",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist"
+    "target": "ES2015",                           // Alvo ECMAScript 2015
+    "module": "commonjs",                         // Módulo CommonJS
+    "lib": ["ES2015", "DOM"],                     // Bibliotecas ECMAScript 2015 e DOM
+    "allowSyntheticDefaultImports": true,         // Permite importações sintéticas
+    "esModuleInterop": true,                      // Interoperabilidade de módulos ES
+    "skipLibCheck": true,                         // Ignora verificação de tipos de bibliotecas
+    "strict": true,                               // Verificação estrita de tipos
+    "outDir": "./dist",                           // Diretório de saída
+    "rootDir": "./src",                           // Diretório raiz
+    "resolveJsonModule": true,                    // Permite importação de módulos JSON
+    "moduleResolution": "node",                   // Resolução de módulos do Node.js
+    "isolatedModules": true                       // Transpila cada arquivo como um módulo isolado
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["src"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
 }

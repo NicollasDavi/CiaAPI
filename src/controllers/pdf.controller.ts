@@ -1,9 +1,8 @@
-import * as fs from 'fs'; // Atualizado para usar importação correta para fs com TypeScript
+import * as fs from 'fs';
 import * as path from 'path';
 import { limparDiretorioUploads, lerArquivoPDF } from "./limparUpload";
 
-
-class PdfController{ 
+class PdfController {
     async handleGet(request: any, reply: any) {
         try {
             const pdfData = await lerArquivoPDF();
@@ -14,7 +13,6 @@ class PdfController{
             return reply.status(500).send({ error: 'Erro ao ler o PDF' });
         }
     }
-    
 
     async handleGetAdm(request: any, reply: any){
         try {
@@ -27,13 +25,6 @@ class PdfController{
         }
     }
 
-
-
-    
-
-
-
-
     async handleUpdate(request: any, reply: any) {
         try {
             if (!request.isMultipart()) {
@@ -44,7 +35,7 @@ class PdfController{
             
             const filesInUploadsDir = await fs.promises.readdir(uploadsDir);
             if (filesInUploadsDir.length > 1) {
-                await limparDiretorioUploads()
+                await limparDiretorioUploads();
             }
     
             await fs.promises.mkdir(uploadsDir, { recursive: true });
@@ -76,4 +67,5 @@ class PdfController{
         }
     }
 }
-export { PdfController }
+
+export { PdfController };

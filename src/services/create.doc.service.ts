@@ -1,4 +1,3 @@
-import { z } from "zod";
 import docRepository from "../repositorys/doc.repository";
 
 class CreateDocService {

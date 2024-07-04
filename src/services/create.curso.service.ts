@@ -1,4 +1,3 @@
-import { z } from "zod";
 import cursoRepository from "../repositorys/curso.repository";
 
 class CreateCursoService {
