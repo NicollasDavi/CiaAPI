@@ -1,6 +1,5 @@
-import {CreateDocService} from "../services/create.doc.service"
+import { CreateDocService } from "../services/create.doc.service";
 import { lerArquivo } from "./limparUpload";
-
 import path from 'path';
 import fs from 'fs';
 import { v4 as uuidv4 } from 'uuid';
@@ -10,9 +9,9 @@ import PDFDocument from 'pdfkit';
 class DocController {
     async handleCreate(request: any, reply: any) {
         const { body } = request;
-        console.log(body);
         const createDocService = new CreateDocService();
         const result = await createDocService.executeCreate(body);
+        console.log(result)
         return reply.send(result);
     }
 
@@ -126,7 +125,7 @@ class DocController {
         const id = request.params.id;
         const action = request.params.action;
         const createDocService = new CreateDocService();
-        const result = createDocService.executeDelete(id, action);
+        const result = await createDocService.executeDelete(id, action);
         return reply.send(result);
     }
 

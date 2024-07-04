@@ -54,7 +54,7 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
     fastify.post("/login", userController.handleLogin);
 
-    fastify.patch("/user/:id", { preHandler : authMiddlewere }, userController.handleUpdate)
+    fastify.patch("/user/:id", userController.handleUpdate)
 
     fastify.get("/user/:id", { preHandler: authMiddlewere } , userController.handleGetOne);
 

@@ -1,11 +1,25 @@
 import { PrismaClient } from "@prisma/client";
 import { deletarArquivo } from "../controllers/limparUpload";
+import { Mutex } from 'async-mutex';
 
 const prisma = new PrismaClient();
+const mutex = new Mutex();
 
 class DocRepository {
     async save(data: any) {
+        const release = await mutex.acquire();
         try {
+            const existingPage = await prisma.pagina.findFirst({
+                where: {
+                    nome: data.nome,
+                    usuario: { matricula: parseInt(data.userId) }
+                }
+            });
+
+            if (existingPage) {
+                return { status: 'error', message: 'Documento com este título já existe.' };
+            }
+
             const pagina = await prisma.pagina.create({
                 data: {
                     nome: data.nome,
@@ -24,10 +38,11 @@ class DocRepository {
                     tipos: true
                 }
             });
-            console.log(pagina);
-            return { pagina };
+            return { status: 'success', pagina };
         } catch (error) {
             throw error;
+        } finally {
+            release();
         }
     }
 
@@ -151,14 +166,12 @@ class DocRepository {
                 return { updatedDoc };
             } 
             else{
-              console.log("Entrou aqui")
               try {
                 const isPdf = await prisma.tipoDocumento.findMany({
                   where: {
                       paginaId: id
                   }
               });
-              console.log(isPdf)
 
               for (const tipo of isPdf) {
                   if (tipo.arqId) {
