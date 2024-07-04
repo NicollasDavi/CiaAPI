@@ -1,9 +1,10 @@
 import { CreateDocService } from "../services/create.doc.service";
 import { lerArquivo } from "./limparUpload";
-import path from 'path';
-import fs from 'fs';
+import * as path from 'path';
+import * as fs from 'fs'; // Usando fs padrão para métodos não-promessa
+import { promises as fsPromises } from 'fs'; // Usando fs.promises para métodos de promessa
 import { v4 as uuidv4 } from 'uuid';
-import mammoth from 'mammoth';
+import * as mammoth from 'mammoth';
 import PDFDocument from 'pdfkit';
 
 class DocController {
@@ -22,7 +23,7 @@ class DocController {
             }
             
             const docsDir = path.join(__dirname, '../docs');
-            await fs.promises.mkdir(docsDir, { recursive: true });
+            await fsPromises.mkdir(docsDir, { recursive: true });
     
             const parts = request.files();
 

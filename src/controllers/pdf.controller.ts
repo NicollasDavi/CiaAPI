@@ -1,4 +1,4 @@
-import fs from 'fs';
+import * as fs from 'fs'; // Atualizado para usar importação correta para fs com TypeScript
 import * as path from 'path';
 import { limparDiretorioUploads, lerArquivoPDF } from "./limparUpload";
 

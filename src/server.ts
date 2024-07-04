@@ -2,7 +2,7 @@ import fastify from 'fastify';
 import fastifyCors from '@fastify/cors';
 import fastifyReplyFrom from '@fastify/reply-from';
 import fastifyMultipart from '@fastify/multipart';
-import fs from 'fs';
+import * as fs from 'fs'; // Atualizado para usar importação correta para fs com TypeScript
 import { routes } from './routes';
 
 const app = fastify({
