@@ -144,6 +144,7 @@ model BugsOrFeatures {
   id         String      @id @default(uuid()) @map(name: "id")
   text   String 
   type String
+  createdBy  String
   createdAt  DateTime    @default(now()) @map(name: "created_at")
   @@map(name: "bugs_or_features")
 }
