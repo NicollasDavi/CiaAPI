@@ -5,6 +5,17 @@ const prisma = new PrismaClient
 
 class BugFeatureRepository{
     async save(data : any){
+
+        const bug = await prisma.bugsOrFeatures.findFirst({
+            where:{
+                text: data.text,
+                type: data.type,
+                userId: data.userId
+            }
+        })
+        if (bug){
+            return ("já existe")
+        }
         const newBugorFeature = await prisma.bugsOrFeatures.create({
             data
         })
