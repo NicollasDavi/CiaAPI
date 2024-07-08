@@ -108,51 +108,38 @@ class DocRepository {
             const doc = await prisma.pagina.findUnique({
                 where: { id }
             });
-
+    
             if (!doc) {
                 throw new Error(`Documento com id ${id} não encontrado`);
             }
-
-            if (action === 0) {
-                if (doc.publica === false) {
-                    const isPdf = await prisma.tipoDocumento.findMany({
-                        where: {
-                            paginaId: id,
-                            arqId: { not: null }
-                        }
-                    });
-
-                    for (const tipo of isPdf) {
-                        if (tipo.arqId) {
-                            await deletarArquivo(tipo.arqId);
-                        }
-                    }
-
-                    await prisma.tipoDocumento.deleteMany({
-                        where: {
-                            paginaId: id
-                        }
-                    });
-
-                    await prisma.pagina.delete({
-                        where: {
-                            id
-                        }
-                    });
-
-                    return { doc };
-                } else {
-                    await prisma.pagina.update({
-                        where: {
-                            id
-                        },
-                        data: {
-                            active: false
-                        }
-                    });
-
-                    return { doc };
+    
+            const isPdf = await prisma.tipoDocumento.findMany({
+                where: {
+                    paginaId: id,
+                    arqId: { not: undefined }
                 }
+            });
+    
+            if (action === 0 && doc.publica === false) {
+                for (const tipo of isPdf) {
+                    if (tipo.arqId) {
+                        await deletarArquivo(tipo.arqId);
+                    }
+                }
+    
+                await prisma.tipoDocumento.deleteMany({
+                    where: {
+                        paginaId: id
+                    }
+                });
+    
+                await prisma.pagina.delete({
+                    where: {
+                        id
+                    }
+                });
+    
+                return { doc };
             } else if (action === 1) {
                 const updatedDoc = await prisma.pagina.update({
                     where: {
@@ -162,46 +149,34 @@ class DocRepository {
                         active: true
                     }
                 });
-
+    
                 return { updatedDoc };
-            } 
-            else{
-              try {
-                const isPdf = await prisma.tipoDocumento.findMany({
-                  where: {
-                      paginaId: id
-                  }
-              });
-
-              for (const tipo of isPdf) {
-                  if (tipo.arqId) {
-                      await deletarArquivo(tipo.arqId);
-                  }
-              }
-
-              await prisma.tipoDocumento.deleteMany({
-                  where: {
-                      paginaId: id
-                  }
-              });
-
-              const deletedDoc = await prisma.pagina.delete({
-                  where: {
-                      id
-                  }
-              });
-              return { deletedDoc };
-              } catch (error : any) {
-                console.log(error.erros)
-              }
-
-                
+            } else if (action === 2) {
+                for (const tipo of isPdf) {
+                    if (tipo.arqId) {
+                        await deletarArquivo(tipo.arqId);
+                    }
+                }
+    
+                await prisma.tipoDocumento.deleteMany({
+                    where: {
+                        paginaId: id
+                    }
+                });
+    
+                const deletedDoc = await prisma.pagina.delete({
+                    where: {
+                        id
+                    }
+                });
+                return { deletedDoc };
             }
         } catch (error: any) {
-            console.log(error);
-            throw new Error("Erro ao executar ação");
+            console.error('Erro ao executar ação de deletar:', error);
+            throw new Error("Erro ao executar ação de deletar");
         }
     }
+    
 
     async getDesactivated() {
         try {
