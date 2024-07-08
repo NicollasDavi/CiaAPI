@@ -46,6 +46,14 @@ class UnidadeController{
         const result = await createUnidadeService.executeDisable(id, action);
         return reply.send(result)
     }
+
+    async handleUpdate(request: any, reply: any){
+        const id = request.params.id
+        const {body} = request
+        const createUnidadeService = new CreateUnidadeService();
+        const result = await createUnidadeService.executeUpdate(id, body);
+        return reply.send(result)
+    }
 }
 
 export {UnidadeController}

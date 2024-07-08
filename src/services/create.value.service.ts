@@ -11,10 +11,27 @@ class CreateValueService{
         }
     }
 
+    async executeUpdate(id: string, data: any) {
+
+        try {
+            return valueRepository.update(id, data);
+        } catch (error: any) {
+            throw new Error("Erro de validação: " + error.errors);
+        }
+    }
+
     async executeGetAll() {
 
         try {
             return valueRepository.getAll();
+        } catch (error: any) {
+            throw new Error("Erro de validação: " + error.errors);
+        }
+    }
+
+    async executeGetOne(id: string){
+        try {
+            return valueRepository.getOne(id);
         } catch (error: any) {
             throw new Error("Erro de validação: " + error.errors);
         }

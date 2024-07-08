@@ -145,8 +145,9 @@ class CursoRepository {
     }
 
     async update(id: string, data: any) {
+        console.log("chegou")
         try {
-            const { nome, informacao, unidade, turno } = data;
+            const {matricula, imagem, nome, informacao, unidade, turno } = data;
             const updatedCurso = await prisma.curso.update({
                 where: {
                     id: id
@@ -156,6 +157,8 @@ class CursoRepository {
                     informacao,
                     turno,
                     unidade,
+                    imagem,
+                    matricula
                 },
             });
             return updatedCurso;

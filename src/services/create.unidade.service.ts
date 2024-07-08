@@ -43,9 +43,17 @@ class CreateUnidadeService {
         }
     }
 
-    async executeDisable(id: any, active: any){
+    async executeDisable(id: any, active: any,){
         try{
             return unidadeRepository.disable(id, active)
+        } catch (error: any){
+            throw new Error("Erro de Validação:" + error.errors)
+        }
+    }
+
+    async executeUpdate(id: string, active: any,){
+        try{
+            return unidadeRepository.update(id, active)
         } catch (error: any){
             throw new Error("Erro de Validação:" + error.errors)
         }

@@ -12,12 +12,36 @@ class ValueController{
             return reply.status(400).send({ error: error.message });
         }
     }
+    async handleUpdate(request: any, reply: any) {
+        const { body } = request;
+        const id = request.params.id
+        try {
+            const createCursoService = new CreateValueService();
+            const result = await createCursoService.executeUpdate(id, body);
+            return reply.send(result);
+           
+        } catch (error: any) {
+            return reply.status(400).send({ error: error.message });
+        }
+    }
 
     async handleGetAll(request: any, reply: any){
         try{
-            const createUserService = new CreateValueService();
-            const result = await createUserService.executeGetAll();
+            const createValueService = new CreateValueService();
+            const result = await createValueService.executeGetAll();
             return reply.send(result);
+        }catch(error: any){
+            return reply.status(400).send({ error: error.message})
+        }
+    }
+
+    async handleGetOne(request: any, reply: any){
+        try{
+            const id = request.params.id
+            const {body} = request
+            const createValueService = new CreateValueService();
+            const result = await createValueService.executeGetOne(id)
+            return reply.send(result)
         }catch(error: any){
             return reply.status(400).send({ error: error.message})
         }
@@ -25,8 +49,8 @@ class ValueController{
 
     async handleGetAllAdm(request: any, reply: any){
         try{
-            const createUserService = new CreateValueService();
-            const result = await createUserService.executeGetAllAdm();
+            const createValueService = new CreateValueService();
+            const result = await createValueService.executeGetAllAdm();
             return reply.send(result);
         }catch(error: any){
             return reply.status(400).send({ error: error.message})
@@ -39,8 +63,8 @@ class ValueController{
         console.log(action)
 
         try{
-            const createUserService = new CreateValueService();
-            const result = await createUserService.executeDisable(id, action);
+            const createValueService = new CreateValueService();
+            const result = await createValueService.executeDisable(id, action);
             return reply.send(result);
         }catch(error: any){
             return reply.status(400).send({ error: error.message})
@@ -51,8 +75,8 @@ class ValueController{
         const id = request.params.id
         console.log(id)
         try{
-            const createUserService = new CreateValueService();
-            const result = await createUserService.executeDelete(id);
+            const createValueService = new CreateValueService();
+            const result = await createValueService.executeDelete(id);
             return reply.send(result);
         }catch(error: any){
             return reply.status(400).send({ error: error.message})

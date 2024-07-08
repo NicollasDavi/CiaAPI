@@ -122,6 +122,24 @@ class UnidadeRepository {
       release();
     }
   }
+
+  async update(id: string, data: any){
+      const unidade = await prisma.unidades.update({
+        where:{
+          codigo: id
+        },
+        data: {
+          horario: data.horario,
+          imagem: data.imagem,
+          informacoes: data.informacoes,
+          nome: data.nome,
+          numeroTel: data.numeroTel,
+          numeroWpp: data.numeroWpp,
+          vcep: data.vcep
+        }
+      })
+      return { unidade };
+  }
 }
 
 export default new UnidadeRepository();

@@ -37,6 +37,30 @@ class ValueRepository {
         }
     }
 
+    async update(id: string, data: any){
+        const valor = await prisma.cursoValor.update({
+            where:{
+                id
+            },
+            data:{
+                nome: data.nome,
+                unidade: data.unidade,
+                turno: data.turno,
+                valor_E: data.valor_E,
+                valor_M: data.valor_M,
+            }
+        })
+        return {valor}
+    }
+    async getOne(id:string){
+        const valor = await prisma.cursoValor.findUnique({
+            where:{
+                id
+            }
+        })
+
+        return {valor}
+    }
     async getAll() {
         try {
             const allValues = await prisma.cursoValor.findMany({

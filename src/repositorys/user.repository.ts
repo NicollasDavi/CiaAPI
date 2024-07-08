@@ -76,6 +76,7 @@ class UserRepository{
     }
 
     async getAll(){
+        console.log("veio")
         try{
             const findAllUsers = await prisma.usuario.findMany();
             return {findAllUsers}
