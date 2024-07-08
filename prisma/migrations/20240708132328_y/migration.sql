@@ -6,3 +6,6 @@
 */
 -- AlterTable
 ALTER TABLE "bugs_or_features" ADD COLUMN     "userId" TEXT NOT NULL;
+
+UPDATE "bugs_or_features" SET "userId" = 1 WHERE "userId" IS NULL;
+
