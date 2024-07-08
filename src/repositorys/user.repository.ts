@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import { create, remove, verify } from "../Tools/IsAuth";
 import { decode } from "jsonwebtoken";
 const jwt = require('jsonwebtoken');
-import bcrypt from 'bcryptjs';
+const bcrypt = require('bcryptjs');
 
 // Exemplo de uso
 const prisma = new PrismaClient();
