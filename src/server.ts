@@ -5,19 +5,19 @@ import fastifyMultipart from '@fastify/multipart';
 import * as fs from 'fs';
 import { routes } from './routes';
 
-// const app = fastify({
-//   https: {
-//     key: fs.readFileSync('/home/nicolas/private.key'),
-//     cert: fs.readFileSync('/home/nicolas/certificate.crt'),
-//     ca: fs.readFileSync('/home/nicolas/ca_bundle.crt') // Inclua este se necessário
-//   }
-// });
+const app = fastify({
+  https: {
+    key: fs.readFileSync('/home/nicolas/private.key'),
+    cert: fs.readFileSync('/home/nicolas/certificate.crt'),
+    ca: fs.readFileSync('/home/nicolas/ca_bundle.crt') // Inclua este se necessário
+  }
+});
 
-const app = fastify()
+// const app = fastify()
 // Configurar CORS corretamente
 app.register(fastifyCors, {
-  // origin: 'https://cursopositivocia.com.br',
-  origin: 'http://localhost:3000',
+  origin: 'https://cursopositivocia.com.br',
+  // origin: 'http://localhost:3000',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,

@@ -17,7 +17,11 @@ class CalcRepository {
 
         // Definir valores adicionais com base no tipo de adicional
         if (adicional === "Posiplay") {
-            valorAdicional = 654.78;
+            if (nome.toLowerCase() === "semiextensivo") {
+                valorAdicional = 403.20;
+            } else {
+                valorAdicional = 654.78;
+            }
         } else if (adicional === "Integral") {
             valorAdicional = 2657.44;
         }
