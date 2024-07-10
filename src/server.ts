@@ -15,15 +15,25 @@ const app = fastify({
 
 // const app = fastify()
 // Configurar CORS corretamente
+// app.register(fastifyCors, {
+//   origin: 'https://cursopositivocia.com.br',
+//   // origin: 'http://localhost:3000',
+//   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+//   allowedHeaders: ['Content-Type', 'Authorization'],
+//   credentials: true,
+//   preflightContinue: false,
+//   optionsSuccessStatus: 204
+// });
+
 app.register(fastifyCors, {
-  origin: 'https://cursopositivocia.com.br',
-  // origin: 'http://localhost:3000',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,
-  preflightContinue: false,
-  optionsSuccessStatus: 204
+  origin: '*', // Permitir qualquer origem
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'], // Permitir todos os métodos
+  allowedHeaders: ['Content-Type', 'Authorization'], // Permitir os cabeçalhos especificados
+  credentials: true, // Permitir envio de credenciais
+  preflightContinue: false, 
+  optionsSuccessStatus: 204 // Status de sucesso para requisições preflight
 });
+
 
 app.register(fastifyReplyFrom);
 
