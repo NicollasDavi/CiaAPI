@@ -1,18 +1,18 @@
 import { CreateDocService } from "../services/create.doc.service";
 import { lerArquivo } from "./limparUpload";
 import * as path from 'path';
-import * as fs from 'fs'; // Usando fs padrão para métodos não-promessa
-import { promises as fsPromises } from 'fs'; // Usando fs.promises para métodos de promessa
+import * as fs from 'fs';
+import { promises as fsPromises } from 'fs';
 import { v4 as uuidv4 } from 'uuid';
 import * as mammoth from 'mammoth';
-import PDFDocument = require('pdfkit'); // Importação corrigida para PDFKit
+import PDFDocument = require('pdfkit');
 
 class DocController {
     async handleCreate(request: any, reply: any) {
         const { body } = request;
         const createDocService = new CreateDocService();
         const result = await createDocService.executeCreate(body);
-        console.log(result)
+        console.log(result);
         return reply.send(result);
     }
 
@@ -21,23 +21,23 @@ class DocController {
             if (!request.isMultipart()) {
                 return reply.status(400).send({ error: 'Nenhum arquivo enviado' });
             }
-            
+
             const docsDir = path.join(__dirname, '../docs');
             await fsPromises.mkdir(docsDir, { recursive: true });
-    
+
             const parts = request.files();
 
             for await (const part of parts) {
                 const file = part.file;
                 const extension = path.extname(part.filename).toLowerCase();
-    
+
                 if (extension !== '.pdf' && extension !== '.doc' && extension !== '.docx') {
                     return reply.status(400).send({ error: 'Apenas arquivos PDF e Word são permitidos' });
                 }
-    
+
                 const filename = `${uuidv4()}${extension}`;
                 const filePath = path.join(docsDir, filename);
-    
+
                 await new Promise<void>((resolve, reject) => {
                     const writeStream = fs.createWriteStream(filePath);
                     file.pipe(writeStream);
@@ -46,17 +46,19 @@ class DocController {
                             try {
                                 const pdfFilename = `${uuidv4()}.pdf`;
                                 const pdfPath = path.join(docsDir, pdfFilename);
-    
+
                                 const { value: text } = await mammoth.extractRawText({ path: filePath });
                                 const pdfDoc = new PDFDocument();
                                 const pdfWriteStream = fs.createWriteStream(pdfPath);
-    
+
                                 pdfDoc.pipe(pdfWriteStream);
                                 pdfDoc.text(text);
                                 pdfDoc.end();
-    
+
                                 pdfWriteStream.on('finish', () => {
-                                    return reply.send({ arqId: pdfFilename });
+                                    console.log("PDF Criado:", pdfFilename);
+                                    reply.send({ arqId: pdfFilename });
+                                    resolve();
                                 });
                                 pdfWriteStream.on('error', (err) => {
                                     reject(err);
@@ -65,7 +67,9 @@ class DocController {
                                 reject(err);
                             }
                         } else {
-                            return reply.send({ arqId: filename });
+                            console.log("PDF Salvo:", filename);
+                            reply.send({ arqId: filename });
+                            resolve();
                         }
                     });
                     writeStream.on('error', (err) => {
@@ -73,13 +77,13 @@ class DocController {
                     });
                 });
             }
-    
+
         } catch (error) {
             console.error('Erro ao salvar o arquivo:', error);
             return reply.status(500).send({ error: 'Erro ao salvar o arquivo' });
         }
     }
-    
+
     async handleGetArq(request: any, reply: any) {
         const id = request.params.id;
         try {
@@ -130,10 +134,10 @@ class DocController {
         return reply.send(result);
     }
 
-    async handleGetDesactivateds(request: any, reply: any){
+    async handleGetDesactivateds(request: any, reply: any) {
         const createDocService = new CreateDocService();
         const result = await createDocService.executeGetDesactivateds();
-        return reply.send(result)
+        return reply.send(result);
     }
 }
 
